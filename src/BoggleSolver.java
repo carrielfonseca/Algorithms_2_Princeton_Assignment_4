@@ -25,7 +25,8 @@ public class BoggleSolver {
     	ArrayList<String> validWords = new ArrayList<>();
     	for (int i = 0; i < board.rows()*board.cols(); i++) {    	
     		visitSquare(board, boggleGraph, i ,"", validWords);    	
-    	}return validWords;    	
+    	}
+    	return validWords;    	
     }
 
     // Returns the score of the given word if it is in the dictionary, zero otherwise.
