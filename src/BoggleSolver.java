@@ -60,8 +60,8 @@ public class BoggleSolver {
     }
     
     private void buildsBoggleGraph(BoggleBoard board,Graph boggleGraph) {
-		for (int i = 0; i < (board.rows()-1); i++) {
-			for (int j = 0; j < (board.cols()-1); j++) {
+		for (int i = 0; i < board.rows(); i++) {
+			for (int j = 0; j < board.cols(); j++) {
 				addEdgesToNeighboors(boggleGraph, i, j, board.rows(), board.rows());
 			}
 		}
