@@ -25,8 +25,18 @@ public class BoggleSolver {
     	int vertexIndex =  i*numberOfCols + j;
     	return vertexIndex;
     }
+    
+    private static int rowOfVertex(int vertexIndex, int numberOfRows, int numberOfCols) {
+    	int rowOfVertex =  (vertexIndex / numberOfCols);
+    	return rowOfVertex;
+    }
 	
 	public static void main(String[] args) {
+//		BoggleSolver = new BoggleSolver(); 
+		int test = rowOfVertex(4,10,5);
+		System.out.println(test);
+		
+		
 	    
 	}
 }
