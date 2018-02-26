@@ -3,6 +3,7 @@ import edu.princeton.cs.algs4.TST;
 public class BoggleSolver {
 
 	TST<Boolean> dictionaryInTrie = new TST<>(); // ternary search tries
+	boolean[] marked;  //if true, means the cell is already visited in a certain path in the Boggle Boad
 
     // Initializes the data structure using the given array of strings as the dictionary.
     // (You can assume each word in the dictionary contains only the uppercase letters A through Z.)
