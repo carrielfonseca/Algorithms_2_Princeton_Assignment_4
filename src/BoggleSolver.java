@@ -5,6 +5,10 @@ import edu.princeton.cs.algs4.Graph;
 import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.TST;
 
+
+// words with at least 3 letters
+// no duplication in words
+// Qu case
 public class BoggleSolver {
 
 	TST<Boolean> dictionaryInTrie = new TST<>(); // ternary search tries
@@ -75,7 +79,7 @@ public class BoggleSolver {
     		words.add(word);
     	}
     	for (int v : boggleGraph.adj(vertex)) {
-    		Queue<String> keysWithPrefix = (Queue) dictionaryInTrie.keysWithPrefix(word);
+    		Queue<String> keysWithPrefix = (Queue<String>) dictionaryInTrie.keysWithPrefix(word);
     		//does not need to visit a square if you know there arent any words that start with those caracters
     		if (!marked[v] && !keysWithPrefix.isEmpty()) {
     			visitSquare(board, boggleGraph, v, word, words);
