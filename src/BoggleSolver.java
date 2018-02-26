@@ -18,7 +18,10 @@ public class BoggleSolver {
     }
 
     // Returns the set of all valid words in the given Boggle board, as an Iterable.
-//    public Iterable<String> getAllValidWords(BoggleBoard board)
+    public Iterable<String> getAllValidWords(BoggleBoard board) {
+    	
+    	
+    }
 
     // Returns the score of the given word if it is in the dictionary, zero otherwise.
     // (You can assume the word contains only the uppercase letters A through Z.)
@@ -49,6 +52,14 @@ public class BoggleSolver {
     			}
     		}
     	}
+    }
+    
+    private void buildsBoggleGraph(Graph boggleGraph) {
+		for (int i = 0; i < (board.rows()-1); i++) {
+			for (int j = 0; j < (board.cols()-1); j++) {
+				addEdgesToNeighboors(boggleGraph, i, j, board.rows(), board.rows() )
+			}
+		}
     }
 	
 	public static void main(String[] args) {
