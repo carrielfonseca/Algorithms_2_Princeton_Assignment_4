@@ -65,9 +65,25 @@ public class BoggleSolver {
 			}
 		}
     }
+    
+    private void visitSquare(BoggleBoard board, Graph boggleGraph, int vertex, String word, List<String> words) {
+    	marked[vertex] = true;
+    	word = word + board.getLetter(rowOfVertex(vertex,  board.rows(), board.cols()), colOfVertex(vertex,  board.rows(), board.cols()));
+    	if (dictionaryInTrie.contains(word)) {
+    		words.add(word);
+    	}
+    	for (int v : boggleGraph.adj(vertex)) {
+    		if (!marked[v]) {
+    			visitSquare(board, boggleGraph, v, word, words);
+    		}
+    	}
+    	word = word.substring(0, word.length()-2); //takes out the last character of the word
+    	marked[vertex] = false;
+    }
 	
 	public static void main(String[] args) {
-		int test = colOfVertex(9,10,5);
+		String test = "Hello";
+		test = test.substring(0, test.length()-2);
 		System.out.println(test);
 		
 		
