@@ -30,10 +30,14 @@ public class BoggleSolver {
     	int rowOfVertex =  (vertexIndex / numberOfCols);
     	return rowOfVertex;
     }
+    
+    private static int colOfVertex(int vertexIndex, int numberOfRows, int numberOfCols) {
+    	int colOfVertex =  (vertexIndex % numberOfCols);
+    	return colOfVertex;
+    }
 	
 	public static void main(String[] args) {
-//		BoggleSolver = new BoggleSolver(); 
-		int test = rowOfVertex(4,10,5);
+		int test = colOfVertex(9,10,5);
 		System.out.println(test);
 		
 		
