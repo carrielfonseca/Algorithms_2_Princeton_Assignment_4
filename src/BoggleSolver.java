@@ -1,6 +1,7 @@
 import java.util.List;
 
 import edu.princeton.cs.algs4.Graph;
+import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.TST;
 
 public class BoggleSolver {
@@ -73,7 +74,9 @@ public class BoggleSolver {
     		words.add(word);
     	}
     	for (int v : boggleGraph.adj(vertex)) {
-    		if (!marked[v]) {
+    		Queue<String> keysWithPrefix = (Queue) dictionaryInTrie.keysWithPrefix(word);
+    		//does not need to visit a square if you know there arent any words that start with those caracters
+    		if (!marked[v] && !keysWithPrefix.isEmpty()) {
     			visitSquare(board, boggleGraph, v, word, words);
     		}
     	}
