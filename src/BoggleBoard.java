@@ -1,5 +1,5 @@
 
-public class Test {
+public class BoggleBoard {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
