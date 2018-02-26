@@ -1,8 +1,12 @@
+import java.util.List;
+
+import edu.princeton.cs.algs4.Graph;
 import edu.princeton.cs.algs4.TST;
 
 public class BoggleSolver {
 
 	TST<Boolean> dictionaryInTrie = new TST<>(); // ternary search tries
+	Graph boggleGraph;
 	boolean[] marked;  //if true, means the cell is already visited in a certain path in the Boggle Boad
 
     // Initializes the data structure using the given array of strings as the dictionary.
@@ -35,6 +39,16 @@ public class BoggleSolver {
     private static int colOfVertex(int vertexIndex, int numberOfRows, int numberOfCols) {
     	int colOfVertex =  (vertexIndex % numberOfCols);
     	return colOfVertex;
+    }
+    
+    private void addEdgesToNeighboors(Graph graph, int i, int j, int numberOfRows, int numberOfCols) {
+    	for (int l = (i-1); l < (i+1); i++) {
+    		for (int m = (j-1); m < (j+1); j++) {
+    			if (l >= 0 && l <= (numberOfRows-1) && m >= 0 && m <= (numberOfCols-1)) {
+    				graph.addEdge(vertexIndex(i, j, numberOfRows, numberOfCols), vertexIndex(l, m, numberOfRows, numberOfCols));
+    			}
+    		}
+    	}
     }
 	
 	public static void main(String[] args) {
