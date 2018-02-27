@@ -19,7 +19,9 @@ public class BoggleSolver {
     // (You can assume each word in the dictionary contains only the uppercase letters A through Z.)
     public BoggleSolver(String[] dictionary) {
     	for (String word : dictionary) {
-    		dictionaryInTrie.put(word, true);
+    		if (word.length() >= 3) {
+    			dictionaryInTrie.put(word, true);
+    		}
     	}
     }
 
@@ -90,9 +92,9 @@ public class BoggleSolver {
     }
 	
 	public static void main(String[] args) {
-		String test = "Hello";
-		test = test.substring(0, test.length()-2);
-		System.out.println(test);
+		String test = "";
+		test = test + "a";
+		System.out.println(test.equals("a"));
 		
 		
 	    
