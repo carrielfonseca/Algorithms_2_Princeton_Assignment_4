@@ -1,5 +1,5 @@
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import edu.princeton.cs.algs4.Graph;
 import edu.princeton.cs.algs4.In;
@@ -26,7 +26,7 @@ public class BoggleSolver {
     	boggleGraph = new Graph(board.rows()*board.cols());
     	marked = new boolean[board.rows()*board.cols()];
     	buildsBoggleGraph(board, boggleGraph);
-    	Set<String> validWords = new TreeSet<>();
+    	Set<String> validWords = new HashSet<>();
     	for (int i = 0; i < board.rows()*board.cols(); i++) {    	
     		visitSquare(board, boggleGraph, i ,"", validWords);    	
     	}
@@ -141,17 +141,25 @@ public class BoggleSolver {
 //		String word = "Hw";
 //		word = word.substring(0, word.length()-1);
 //		System.out.println(word);
-		In in = new In("dictionary-algs4.txt");
+		In in = new In("dictionary-yawl.txt");
 	    String[] dictionary = in.readAllStrings();
 	    BoggleSolver solver = new BoggleSolver(dictionary);
-	    BoggleBoard board = new BoggleBoard("board-q.txt");
+	    BoggleBoard board = new BoggleBoard("board-points26539.txt");
+//	    BoggleBoard board2 = new BoggleBoard("board-points4527.txt");
 	    System.out.println(board);
-	    System.out.println(board.getLetter(2, 1));
 	    int score = 0;
 	    for (String word : solver.getAllValidWords(board)) {
 	        StdOut.println(word);
 	        score += solver.scoreOf(word);
 	    }
 	    StdOut.println("Score = " + score);	    
+	    
+	    
+//	    score = 0;
+//	    for (String word : solver.getAllValidWords(board2)) {
+//	        StdOut.println(word);
+//	        score += solver.scoreOf(word);
+//	    }
+//	    StdOut.println("Score = " + score);
 	}
 }
