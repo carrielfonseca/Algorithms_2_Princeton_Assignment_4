@@ -115,10 +115,10 @@ public class BoggleSolver {
     	marked[vertex] = false;
     }
     
-    private int countStringOccurrences(String s, String stringToCount) {    	
+    private static int countStringOccurrences(String s, String stringToCount) {    	
     	int counter = 0;
-    	for(int i=0; i<s.length(); i++) {
-    	    if( (s.substring(i, stringToCount.length()-1)).equalsIgnoreCase(stringToCount)) {
+    	for(int i=0; i<(s.length()-stringToCount.length()+1); i++) {
+    	    if( (s.substring(i, i+stringToCount.length())).equalsIgnoreCase(stringToCount)) {
     	        counter++;
     	    } 
     	}
@@ -126,9 +126,9 @@ public class BoggleSolver {
     }
 	
 	public static void main(String[] args) {
-		String test = "";
-		test = test + "a";
-		System.out.println(test.equals("a"));
+		String test = "asaQuQuvvsQut";
+		int x = countStringOccurrences(test,"Qu");
+		System.out.println(x);
 		
 		
 	    
