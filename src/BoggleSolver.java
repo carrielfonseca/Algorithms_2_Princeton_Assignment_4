@@ -109,10 +109,9 @@ public class BoggleSolver {
     	String boardLetter = "" +  board.getLetter(rowOfVertex(vertex,  board.rows(), board.cols()), colOfVertex(vertex,  board.rows(), board.cols()));
     	// makes a correction for the special case of letter "Q"
     	if (boardLetter.equalsIgnoreCase("Q")) {
-    		boardLetter = "Qu"; 
+    		boardLetter = "QU"; 
     	}
-    	word = word + boardLetter
-    			;
+    	word = word + boardLetter;
     	int countQu = countStringOccurrences(word, "QU");
     	int lengthAdjusted = word.length() - countQu;
     	// word must be in the dictionary AND have at least 3 letters
@@ -155,6 +154,7 @@ public class BoggleSolver {
 	    BoggleSolver solver = new BoggleSolver(dictionary);
 	    BoggleBoard board = new BoggleBoard("board-q.txt");
 	    System.out.println(board);
+	    System.out.println(board.getLetter(2, 1));
 	    int score = 0;
 	    for (String word : solver.getAllValidWords(board)) {
 	        StdOut.println(word);
