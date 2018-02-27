@@ -35,7 +35,28 @@ public class BoggleSolver {
 
     // Returns the score of the given word if it is in the dictionary, zero otherwise.
     // (You can assume the word contains only the uppercase letters A through Z.)
-//    public int scoreOf(String word)
+    public int scoreOf(String word) {
+    	int points;
+    	if (word.length() >= 3 && word.length() <= 4) {
+    		points = 1;
+    	} 
+    	else if (word.length() == 5)  {
+    		points = 2;
+    	}
+    	else if (word.length() == 6)  {
+    		points = 3;
+    	}
+    	else if (word.length() == 7)  {
+    		points = 5;
+    	}
+    	else if (word.length() >= 8)  {
+    		points = 11;
+    	}
+    	else {
+    		points = 0;
+    	}
+    	return points;
+    }
     
     // returns the index of the cel in a matrix with a numberOfRows and a numberOfCols
     // read from left to right, top to bottom
