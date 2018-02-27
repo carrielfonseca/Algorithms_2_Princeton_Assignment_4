@@ -141,7 +141,7 @@ public class BoggleSolver {
 //		String word = "Hw";
 //		word = word.substring(0, word.length()-1);
 //		System.out.println(word);
-		In in = new In("dictionary-yawl.txt");
+		In in = new In("dictionary-algs4.txt");
 	    String[] dictionary = in.readAllStrings();
 	    BoggleSolver solver = new BoggleSolver(dictionary);
 	    BoggleBoard board = new BoggleBoard("board-q.txt");
