@@ -153,7 +153,7 @@ public class BoggleSolver {
 		In in = new In("dictionary-algs4.txt");
 	    String[] dictionary = in.readAllStrings();
 	    BoggleSolver solver = new BoggleSolver(dictionary);
-	    BoggleBoard board = new BoggleBoard();
+	    BoggleBoard board = new BoggleBoard("board-q.txt");
 	    System.out.println(board);
 	    int score = 0;
 	    for (String word : solver.getAllValidWords(board)) {
