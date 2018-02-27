@@ -18,10 +18,8 @@ public class BoggleSolver {
     // Initializes the data structure using the given array of strings as the dictionary.
     // (You can assume each word in the dictionary contains only the uppercase letters A through Z.)
     public BoggleSolver(String[] dictionary) {
-    	for (String word : dictionary) {
-    		if (word.length() >= 3) {
-    			dictionaryInTrie.put(word, true);
-    		}
+    	for (String word : dictionary) {    		
+    		dictionaryInTrie.put(word, true);    		
     	}
     }
 
@@ -77,7 +75,8 @@ public class BoggleSolver {
     private void visitSquare(BoggleBoard board, Graph boggleGraph, int vertex, String word, List<String> words) {
     	marked[vertex] = true;
     	word = word + board.getLetter(rowOfVertex(vertex,  board.rows(), board.cols()), colOfVertex(vertex,  board.rows(), board.cols()));
-    	if (dictionaryInTrie.contains(word)) {
+    	// word must be in the dictionary AND have at least 3 letters
+    	if (dictionaryInTrie.contains(word) && word.length() >= 3) { 
     		words.add(word);
     	}
     	for (int v : boggleGraph.adj(vertex)) {
