@@ -7,10 +7,6 @@ import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.TST;
 
-
-// words with at least 3 letters
-// no duplication in words
-// Qu case
 public class BoggleSolver {
 
 	private TST<Boolean> dictionaryInTrie = new TST<>(); // ternary search tries
@@ -69,12 +65,12 @@ public class BoggleSolver {
     	return vertexIndex;
     }
     
-    private static int rowOfVertex(int vertexIndex, int numberOfRows, int numberOfCols) {
+    private int rowOfVertex(int vertexIndex, int numberOfRows, int numberOfCols) {
     	int rowOfVertex =  (vertexIndex / numberOfCols);
     	return rowOfVertex;
     }
     
-    private static int colOfVertex(int vertexIndex, int numberOfRows, int numberOfCols) {
+    private int colOfVertex(int vertexIndex, int numberOfRows, int numberOfCols) {
     	int colOfVertex =  (vertexIndex % numberOfCols);
     	return colOfVertex;
     }
@@ -131,7 +127,7 @@ public class BoggleSolver {
     	marked[vertex] = false;
     }
     
-    private static int countStringOccurrences(String s, String stringToCount) {    	
+    private int countStringOccurrences(String s, String stringToCount) {    	
     	int counter = 0;
     	for(int i=0; i<(s.length()-stringToCount.length()+1); i++) {
     	    if( (s.substring(i, i+stringToCount.length())).equalsIgnoreCase(stringToCount)) {
