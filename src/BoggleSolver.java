@@ -81,7 +81,7 @@ public class BoggleSolver {
     			//if within boudaries AND not the same square (cannot have self reference) 
     			
     			if (l >= 0 && l <= (numberOfRows-1) && m >= 0 && m <= (numberOfCols-1)
-    			    && !(l == i &m == j)) {
+    			    && !(l == i && m == j)) {
     				graph.addEdge(vertexIndex(i, j, numberOfRows, numberOfCols), vertexIndex(l, m, numberOfRows, numberOfCols));
     			}
     		}
