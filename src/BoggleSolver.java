@@ -81,8 +81,8 @@ public class BoggleSolver {
     }
     
     private void addEdgesToNeighboors(Graph graph, int i, int j, int numberOfRows, int numberOfCols) {
-    	for (int l = (i-1); l <= (i+1); i++) {
-    		for (int m = (j-1); m <= (j+1); j++) {
+    	for (int l = (i-1); l <= (i+1); l++) {
+    		for (int m = (j-1); m <= (j+1); m++) {
     			if (l >= 0 && l <= (numberOfRows-1) && m >= 0 && m <= (numberOfCols-1)) {
     				graph.addEdge(vertexIndex(i, j, numberOfRows, numberOfCols), vertexIndex(l, m, numberOfRows, numberOfCols));
     			}
