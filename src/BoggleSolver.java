@@ -42,22 +42,20 @@ public class BoggleSolver {
     // Returns the score of the given word if it is in the dictionary, zero otherwise.
     // (You can assume the word contains only the uppercase letters A through Z.)
     public int scoreOf(String word) {
-    	int points;
-    	int countQu = countStringOccurrences(word, "QU");
-    	int lengthAdjusted = word.length() - countQu;
-    	if (lengthAdjusted >= 3 && lengthAdjusted <= 4) {
+    	int points;    	
+    	if (word.length() >= 3 && word.length() <= 4) {
     		points = 1;
     	} 
-    	else if (lengthAdjusted == 5)  {
+    	else if (word.length() == 5)  {
     		points = 2;
     	}
-    	else if (lengthAdjusted == 6)  {
+    	else if (word.length() == 6)  {
     		points = 3;
     	}
-    	else if (lengthAdjusted == 7)  {
+    	else if (word.length() == 7)  {
     		points = 5;
     	}
-    	else if (lengthAdjusted >= 8)  {
+    	else if (word.length() >= 8)  {
     		points = 11;
     	}
     	else {
