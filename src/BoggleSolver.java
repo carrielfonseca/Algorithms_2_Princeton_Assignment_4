@@ -28,6 +28,7 @@ public class BoggleSolver {
     // Returns the set of all valid words in the given Boggle board, as an Iterable.
     public Iterable<String> getAllValidWords(BoggleBoard board) {
     	boggleGraph = new Graph(board.rows()*board.cols());
+    	marked = new boolean[board.rows()*board.cols()];
     	buildsBoggleGraph(board, boggleGraph);
     	ArrayList<String> validWords = new ArrayList<>();
     	for (int i = 0; i < board.rows()*board.cols(); i++) {    	
