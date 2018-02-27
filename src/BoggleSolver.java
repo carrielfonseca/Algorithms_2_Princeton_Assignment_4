@@ -15,9 +15,9 @@ import edu.princeton.cs.algs4.TST;
 // Qu case
 public class BoggleSolver {
 
-	TST<Boolean> dictionaryInTrie = new TST<>(); // ternary search tries
-	Graph boggleGraph;
-	boolean[] marked;  //if true, means the cell is already visited in a certain path in the Boggle Boad
+	private TST<Boolean> dictionaryInTrie = new TST<>(); // ternary search tries
+	private Graph boggleGraph;
+	private boolean[] marked;  //if true, means the cell is already visited in a certain path in the Boggle Boad
 
     // Initializes the data structure using the given array of strings as the dictionary.
     // (You can assume each word in the dictionary contains only the uppercase letters A through Z.)
@@ -150,7 +150,7 @@ public class BoggleSolver {
 		In in = new In("dictionary-algs4.txt");
 	    String[] dictionary = in.readAllStrings();
 	    BoggleSolver solver = new BoggleSolver(dictionary);
-	    BoggleBoard board = new BoggleBoard("board-q.txt");
+	    BoggleBoard board = new BoggleBoard("board4x4.txt");
 	    System.out.println(board);
 	    System.out.println(board.getLetter(2, 1));
 	    int score = 0;
