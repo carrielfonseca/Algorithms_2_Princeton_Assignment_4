@@ -110,6 +110,16 @@ public class BoggleSolver {
     	word = word.substring(0, word.length()-2); //takes out the last character of the word
     	marked[vertex] = false;
     }
+    
+    private int countStringOccurrences(String s, String stringToCount) {    	
+    	int counter = 0;
+    	for(int i=0; i<s.length(); i++) {
+    	    if( (s.substring(i, stringToCount.length()-1)).equals(stringToCount)) {
+    	        counter++;
+    	    } 
+    	}
+    	return counter;
+    }
 	
 	public static void main(String[] args) {
 		String test = "";
