@@ -98,8 +98,10 @@ public class BoggleSolver {
     private void visitSquare(BoggleBoard board, Graph boggleGraph, int vertex, String word, List<String> words) {
     	marked[vertex] = true;
     	word = word + board.getLetter(rowOfVertex(vertex,  board.rows(), board.cols()), colOfVertex(vertex,  board.rows(), board.cols()));
+    	int countQu = countStringOccurrences(word, "QU");
+    	int lengthAdjusted = word.length() - countQu;
     	// word must be in the dictionary AND have at least 3 letters
-    	if (dictionaryInTrie.contains(word) && word.length() >= 3) { 
+    	if (dictionaryInTrie.contains(word) && lengthAdjusted >= 3) { 
     		words.add(word);
     	}
     	for (int v : boggleGraph.adj(vertex)) {
