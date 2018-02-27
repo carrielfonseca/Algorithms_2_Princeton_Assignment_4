@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import edu.princeton.cs.algs4.Graph;
 import edu.princeton.cs.algs4.In;
@@ -30,7 +32,7 @@ public class BoggleSolver {
     	boggleGraph = new Graph(board.rows()*board.cols());
     	marked = new boolean[board.rows()*board.cols()];
     	buildsBoggleGraph(board, boggleGraph);
-    	ArrayList<String> validWords = new ArrayList<>();
+    	Set<String> validWords = new TreeSet<>();
     	for (int i = 0; i < board.rows()*board.cols(); i++) {    	
     		visitSquare(board, boggleGraph, i ,"", validWords);    	
     	}
@@ -102,7 +104,7 @@ public class BoggleSolver {
 		}
     }
     
-    private void visitSquare(BoggleBoard board, Graph boggleGraph, int vertex, String word, List<String> words) {
+    private void visitSquare(BoggleBoard board, Graph boggleGraph, int vertex, String word, Set<String> words) {
     	marked[vertex] = true;
     	String boardLetter = "" +  board.getLetter(rowOfVertex(vertex,  board.rows(), board.cols()), colOfVertex(vertex,  board.rows(), board.cols()));
     	// makes a correction for the special case of letter "Q"
@@ -139,19 +141,19 @@ public class BoggleSolver {
     }
 	
 	public static void main(String[] args) {
-		String word = "Hw";
-		word = word.substring(0, word.length()-1);
-		System.out.println(word);
-//		In in = new In("dictionary-algs4.txt");
-//	    String[] dictionary = in.readAllStrings();
-//	    BoggleSolver solver = new BoggleSolver(dictionary);
-//	    BoggleBoard board = new BoggleBoard();
-//	    System.out.println(board);
-//	    int score = 0;
-//	    for (String word : solver.getAllValidWords(board)) {
-//	        StdOut.println(word);
-//	        score += solver.scoreOf(word);
-//	    }
-//	    StdOut.println("Score = " + score);	    
+//		String word = "Hw";
+//		word = word.substring(0, word.length()-1);
+//		System.out.println(word);
+		In in = new In("dictionary-algs4.txt");
+	    String[] dictionary = in.readAllStrings();
+	    BoggleSolver solver = new BoggleSolver(dictionary);
+	    BoggleBoard board = new BoggleBoard();
+	    System.out.println(board);
+	    int score = 0;
+	    for (String word : solver.getAllValidWords(board)) {
+	        StdOut.println(word);
+	        score += solver.scoreOf(word);
+	    }
+	    StdOut.println("Score = " + score);	    
 	}
 }
