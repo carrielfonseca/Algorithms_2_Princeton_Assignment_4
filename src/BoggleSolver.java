@@ -126,7 +126,13 @@ public class BoggleSolver {
     			visitSquare(board, boggleGraph, v, word, words);
     		}
     	}
-    	word = word.substring(0, word.length()-1); //takes out the last character of the word
+    	if (boardLetter.equalsIgnoreCase("Qu")) {
+    		word = word.substring(0, word.length()-2); //takes out the last 2 characters of the word if finds a Q
+    	}
+    	else {
+    		word = word.substring(0, word.length()-1); //takes out the last character of the word if not a Q
+    	}
+    	
     	marked[vertex] = false;
     }
     
