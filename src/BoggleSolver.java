@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -147,10 +145,10 @@ public class BoggleSolver {
 //		String word = "Hw";
 //		word = word.substring(0, word.length()-1);
 //		System.out.println(word);
-		In in = new In("dictionary-algs4.txt");
+		In in = new In("dictionary-yawl.txt");
 	    String[] dictionary = in.readAllStrings();
 	    BoggleSolver solver = new BoggleSolver(dictionary);
-	    BoggleBoard board = new BoggleBoard("board4x4.txt");
+	    BoggleBoard board = new BoggleBoard("board-q.txt");
 	    System.out.println(board);
 	    System.out.println(board.getLetter(2, 1));
 	    int score = 0;
