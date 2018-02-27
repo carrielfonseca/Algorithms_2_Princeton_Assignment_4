@@ -27,6 +27,7 @@ public class BoggleSolver {
 
     // Returns the set of all valid words in the given Boggle board, as an Iterable.
     public Iterable<String> getAllValidWords(BoggleBoard board) {
+    	boggleGraph = new Graph(board.rows()*board.cols());
     	buildsBoggleGraph(board, boggleGraph);
     	ArrayList<String> validWords = new ArrayList<>();
     	for (int i = 0; i < board.rows()*board.cols(); i++) {    	
@@ -92,7 +93,7 @@ public class BoggleSolver {
     private void buildsBoggleGraph(BoggleBoard board,Graph boggleGraph) {
 		for (int i = 0; i < board.rows(); i++) {
 			for (int j = 0; j < board.cols(); j++) {
-				addEdgesToNeighboors(boggleGraph, i, j, board.rows(), board.rows());
+				addEdgesToNeighboors(boggleGraph, i, j, board.rows(), board.cols());
 			}
 		}
     }
@@ -134,10 +135,11 @@ public class BoggleSolver {
     }
 	
 	public static void main(String[] args) {
-		In in = new In(args[0]);
+		In in = new In("dictionary-algs4.txt");
 	    String[] dictionary = in.readAllStrings();
 	    BoggleSolver solver = new BoggleSolver(dictionary);
-	    BoggleBoard board = new BoggleBoard(args[1]);
+	    BoggleBoard board = new BoggleBoard();
+	    System.out.println(board);
 	    int score = 0;
 	    for (String word : solver.getAllValidWords(board)) {
 	        StdOut.println(word);
