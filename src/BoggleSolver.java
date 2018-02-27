@@ -2,7 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.princeton.cs.algs4.Graph;
+import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Queue;
+import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.TST;
 
 
@@ -102,7 +104,8 @@ public class BoggleSolver {
     	if (boardLetter.equalsIgnoreCase("Q")) {
     		boardLetter = "Qu"; 
     	}
-    	word = word + boardLetter;
+    	word = word + boardLetter
+    			;
     	int countQu = countStringOccurrences(word, "QU");
     	int lengthAdjusted = word.length() - countQu;
     	// word must be in the dictionary AND have at least 3 letters
@@ -131,9 +134,16 @@ public class BoggleSolver {
     }
 	
 	public static void main(String[] args) {
-		String test = "asaQuQuvvsQut";
-		int x = countStringOccurrences(test,"Qu");
-		System.out.println(x);
+		In in = new In(args[0]);
+	    String[] dictionary = in.readAllStrings();
+	    BoggleSolver solver = new BoggleSolver(dictionary);
+	    BoggleBoard board = new BoggleBoard(args[1]);
+	    int score = 0;
+	    for (String word : solver.getAllValidWords(board)) {
+	        StdOut.println(word);
+	        score += solver.scoreOf(word);
+	    }
+	    StdOut.println("Score = " + score);
 		
 		
 	    
