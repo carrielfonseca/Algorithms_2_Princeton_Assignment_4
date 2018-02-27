@@ -124,7 +124,7 @@ public class BoggleSolver {
     			visitSquare(board, boggleGraph, v, word, words);
     		}
     	}
-    	word = word.substring(0, word.length()-2); //takes out the last character of the word
+    	word = word.substring(0, word.length()-1); //takes out the last character of the word
     	marked[vertex] = false;
     }
     
@@ -139,16 +139,19 @@ public class BoggleSolver {
     }
 	
 	public static void main(String[] args) {
-		In in = new In("dictionary-algs4.txt");
-	    String[] dictionary = in.readAllStrings();
-	    BoggleSolver solver = new BoggleSolver(dictionary);
-	    BoggleBoard board = new BoggleBoard();
-	    System.out.println(board);
-	    int score = 0;
-	    for (String word : solver.getAllValidWords(board)) {
-	        StdOut.println(word);
-	        score += solver.scoreOf(word);
-	    }
-	    StdOut.println("Score = " + score);	    
+		String word = "Hw";
+		word = word.substring(0, word.length()-1);
+		System.out.println(word);
+//		In in = new In("dictionary-algs4.txt");
+//	    String[] dictionary = in.readAllStrings();
+//	    BoggleSolver solver = new BoggleSolver(dictionary);
+//	    BoggleBoard board = new BoggleBoard();
+//	    System.out.println(board);
+//	    int score = 0;
+//	    for (String word : solver.getAllValidWords(board)) {
+//	        StdOut.println(word);
+//	        score += solver.scoreOf(word);
+//	    }
+//	    StdOut.println("Score = " + score);	    
 	}
 }
