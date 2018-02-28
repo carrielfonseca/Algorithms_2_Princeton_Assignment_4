@@ -38,8 +38,11 @@ public class BoggleSolver {
     // Returns the score of the given word if it is in the dictionary, zero otherwise.
     // (You can assume the word contains only the uppercase letters A through Z.)
     public int scoreOf(String word) {
-    	int points;    	
-    	if (word.length() >= 3 && word.length() <= 4) {
+    	int points;
+    	if (!dictionaryInTrie.contains(word)) {
+    		points = 0;
+    	}
+    	else if (word.length() >= 3 && word.length() <= 4) {
     		points = 1;
     	} 
     	else if (word.length() == 5)  {
@@ -141,17 +144,18 @@ public class BoggleSolver {
 //		String word = "H";
 //		word = word.substring(0, word.length()-1);
 //		System.out.println(word);
-		In in = new In("dictionary-yawl.txt");
+		In in = new In("dictionary-algs4.txt");
 	    String[] dictionary = in.readAllStrings();
 	    BoggleSolver solver = new BoggleSolver(dictionary);
-	    BoggleBoard board = new BoggleBoard("board-points26539.txt");
-	    System.out.println(board);
-	    int score = 0;
-	    for (String word : solver.getAllValidWords(board)) {
-	        StdOut.println(word);
-	        score += solver.scoreOf(word);
-	    }
-	    StdOut.println("Score = " + score);	   
+//	    BoggleBoard board = new BoggleBoard("board-points26539.txt");
+//	    System.out.println(board);
+//	    int score = 0;
+//	    for (String word : solver.getAllValidWords(board)) {
+//	        StdOut.println(word);
+//	        score += solver.scoreOf(word);
+//	    }
+//	    StdOut.println("Score = " + score);
+	    StdOut.println(solver.scoreOf("POSTBOY"));
 	    
 	}
 }
