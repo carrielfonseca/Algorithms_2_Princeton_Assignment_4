@@ -165,13 +165,11 @@ public class TSTFabio<Value> {
         if (prefix == null) {
             throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
         }
-        Queue<String> queue = new Queue<String>();
-        
+        Queue<String> queue = new Queue<String>();        
         Node<Value> x = get(current, prefix, 0);
         if (x == null) {
         	x = get(root, prefix, 0); 
-        }
-        
+        }        
         if (x == null) return false;
         if (x.val != null) {
         	queue.enqueue(prefix);
