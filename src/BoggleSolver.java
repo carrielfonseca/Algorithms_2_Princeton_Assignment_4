@@ -108,10 +108,8 @@ public class BoggleSolver {
     		boardLetter = "QU"; 
     	}
     	word = word + boardLetter;
-    	int countQu = countStringOccurrences(word, "QU");
-    	int lengthAdjusted = word.length() - countQu;
     	// word must be in the dictionary AND have at least 3 letters
-    	if (dictionaryInTrie.contains(word) && lengthAdjusted >= 3) { 
+    	if (dictionaryInTrie.contains(word) && word.length() >= 3) { 
     		words.add(word);
     	}
     	for (int v : adj[vertex]) {
@@ -148,7 +146,7 @@ public class BoggleSolver {
 		In in = new In("dictionary-yawl.txt");
 	    String[] dictionary = in.readAllStrings();
 	    BoggleSolver solver = new BoggleSolver(dictionary);
-	    BoggleBoard board = new BoggleBoard("board-points26539.txt");
+	    BoggleBoard board = new BoggleBoard("board-aqua.txt");
 //	    BoggleBoard board2 = new BoggleBoard("board-points4527.txt");
 	    System.out.println(board);
 	    int score = 0;
