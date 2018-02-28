@@ -83,8 +83,7 @@ public class BoggleSolver {
     	int vertexIndex = vertexIndex(i, j, numberOfRows, numberOfCols);
     	for (int l = (i-1); l <= (i+1); l++) {
     		for (int m = (j-1); m <= (j+1); m++) {
-    			//if within boudaries AND not the same square (cannot have self reference) 
-    			
+    			//if within boudaries AND not the same square (cannot have self reference)     			
     			if (l >= 0 && l <= (numberOfRows-1) && m >= 0 && m <= (numberOfCols-1)
     			    && !(l == i && m == j)) {
 

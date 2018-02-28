@@ -218,6 +218,30 @@ public class TSTFabio<Value> {
         collect(x.mid, new StringBuilder(prefix), queue);
         return queue;
     }
+    
+    public boolean hasKeysWithPrefix(String prefix) {
+        if (prefix == null) {
+            throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
+        }
+        Node<Value> x = get(root, prefix, 0);
+        if (x == null) return false;
+        if (x.val != null) return true;
+	    boolean haskeyWithPrefix = hasKeysWithPrefix(x.mid, prefix);   
+	    return haskeyWithPrefix;        
+    }
+    
+    private boolean hasKeysWithPrefix(Node<Value> x, String prefix) {
+    	boolean hasKeyWithPrefix;
+    	if (x == null) return false;
+    	else {
+    		hasKeyWithPrefix = hasKeysWithPrefix(x.left, prefix);
+    		if (x.val != null) return true;
+    		hasKeyWithPrefix = hasKeysWithPrefix(x.mid, prefix + x.c);
+    		prefix.substring(0, prefix.length()-1);
+    		hasKeyWithPrefix = hasKeysWithPrefix(x.right, prefix);    		
+    	}
+    	return hasKeyWithPrefix;
+    }
 
     // all keys in subtrie rooted at x with given prefix
     private void collect(Node<Value> x, StringBuilder prefix, Queue<String> queue) {
