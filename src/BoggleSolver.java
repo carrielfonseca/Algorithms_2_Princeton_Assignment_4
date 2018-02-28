@@ -8,7 +8,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class BoggleSolver {
 
-	private TSTFabio<Boolean> dictionaryInTrie = new TSTFabio<>(); // ternary search tries
+	private MultiwayTrieFabio<Boolean> dictionaryInTrie = new MultiwayTrieFabio<>(); // ternary search tries
 	private ArrayList<Bag<Integer>> adj; // adjacent squares that can be visited from each vertex
 	private boolean[] marked;  //if true, means the cell is already visited in a certain path in the Boggle Boad
 
@@ -156,6 +156,15 @@ public class BoggleSolver {
 	        score += solver.scoreOf(word);
 	    }
 	    StdOut.println("Score = " + score);
-	    
+
+//		char c = 65;
+//		char d = 3;
+//		char e = (char) (c + d);
+//		System.out.println(c++);	
+//		
+//		for (int i = 0; i < 256; i++) {
+//			System.out.println(c++);	
+//		}
+		
 	}
 }

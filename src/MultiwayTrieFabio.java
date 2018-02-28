@@ -4,7 +4,9 @@ import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.TrieST;
 
 public class MultiwayTrieFabio<Value> {
-    private static final int R = 256;        // extended ASCII
+    private static final int R = 26;        // extended ASCII
+    private static final char OFFSET = 65; 
+    
 
 
     private Node root;      // root of trie
@@ -52,7 +54,7 @@ public class MultiwayTrieFabio<Value> {
     private Node get(Node x, String key, int d) {
         if (x == null) return null;
         if (d == key.length()) return x;
-        char c = key.charAt(d);
+        char c = (char) (key.charAt(d) -  OFFSET) ;        
         return get(x.next[c], key, d+1);
     }
 
@@ -77,7 +79,7 @@ public class MultiwayTrieFabio<Value> {
             x.val = val;
             return x;
         }
-        char c = key.charAt(d);
+        char c = (char) (key.charAt(d) - OFFSET);
         x.next[c] = put(x.next[c], key, val, d+1);
         return x;
     }
@@ -136,7 +138,7 @@ public class MultiwayTrieFabio<Value> {
 			return;  //dont continue if finds one key with prefix
 		}
 		for (char c = 0; c < R; c++) {
-			prefix.append(c);
+			prefix.append(c+ OFFSET);
 			collect(x.next[c], prefix, queue);
 			prefix.deleteCharAt(prefix.length() - 1);
 		}
