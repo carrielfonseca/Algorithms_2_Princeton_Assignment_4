@@ -76,13 +76,14 @@ public class BoggleSolver {
     }
     
     private void addEdgesToNeighboors(Graph graph, int i, int j, int numberOfRows, int numberOfCols) {
+    	int vertexIndex = vertexIndex(i, j, numberOfRows, numberOfCols);
     	for (int l = (i-1); l <= (i+1); l++) {
     		for (int m = (j-1); m <= (j+1); m++) {
     			//if within boudaries AND not the same square (cannot have self reference) 
     			
     			if (l >= 0 && l <= (numberOfRows-1) && m >= 0 && m <= (numberOfCols-1)
     			    && !(l == i && m == j)) {
-    				graph.addEdge(vertexIndex(i, j, numberOfRows, numberOfCols), vertexIndex(l, m, numberOfRows, numberOfCols));
+    				graph.addEdge(vertexIndex, vertexIndex(l, m, numberOfRows, numberOfCols));
     			}
     		}
     	}
