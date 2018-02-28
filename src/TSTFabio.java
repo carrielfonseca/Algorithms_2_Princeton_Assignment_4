@@ -231,15 +231,18 @@ public class TSTFabio<Value> {
     }
     
     private boolean hasKeysWithPrefix(Node<Value> x, String prefix) {
-    	boolean hasKeyWithPrefix;
-    	if (x == null) return false;
-    	else {
-    		hasKeyWithPrefix = hasKeysWithPrefix(x.left, prefix);
+    	boolean hasKeyWithPrefix = false;
+    	
+    	if (x != null) {
     		if (x.val != null) return true;
-    		hasKeyWithPrefix = hasKeysWithPrefix(x.mid, prefix + x.c);
-    		prefix.substring(0, prefix.length()-1);
-    		hasKeyWithPrefix = hasKeysWithPrefix(x.right, prefix);    		
+    		hasKeyWithPrefix = hasKeysWithPrefix(x.left, prefix);
+			
+			prefix = prefix + x.c;
+			hasKeyWithPrefix = hasKeysWithPrefix(x.mid, prefix);
+			prefix = prefix.substring(0, prefix.length()-1);
+			hasKeyWithPrefix = hasKeysWithPrefix(x.right, prefix);
     	}
+    	
     	return hasKeyWithPrefix;
     }
 

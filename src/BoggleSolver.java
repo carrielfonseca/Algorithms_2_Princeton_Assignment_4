@@ -6,11 +6,10 @@ import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.StdOut;
-import edu.princeton.cs.algs4.TST;
 
 public class BoggleSolver {
 
-	private TST<Boolean> dictionaryInTrie = new TST<>(); // ternary search tries
+	private TSTFabio<Boolean> dictionaryInTrie = new TSTFabio<>(); // ternary search tries
 	private ArrayList<Bag<Integer>> adj; // adjacent squares that can be visited from each vertex
 	private boolean[] marked;  //if true, means the cell is already visited in a certain path in the Boggle Boad
 
@@ -114,9 +113,8 @@ public class BoggleSolver {
     		words.add(word);
     	}
     	for (int v : adj.get(vertex)) {
-    		Queue<String> keysWithPrefix = (Queue<String>) dictionaryInTrie.keysWithPrefix(word);
     		//does not need to visit a square if you know there arent any words that start with those caracters
-    		if (!marked[v] && !keysWithPrefix.isEmpty()) {
+    		if (!marked[v] && dictionaryInTrie.hasKeysWithPrefix(word)) {
     			visitSquare(board, v, word, words);
     		}
     	}
@@ -141,28 +139,20 @@ public class BoggleSolver {
     }
 	
 	public static void main(String[] args) {
-//		String word = "Hw";
+//		String word = "H";
 //		word = word.substring(0, word.length()-1);
 //		System.out.println(word);
 		In in = new In("dictionary-yawl.txt");
 	    String[] dictionary = in.readAllStrings();
 	    BoggleSolver solver = new BoggleSolver(dictionary);
 	    BoggleBoard board = new BoggleBoard("board-points26539.txt");
-//	    BoggleBoard board2 = new BoggleBoard("board-points4527.txt");
 	    System.out.println(board);
 	    int score = 0;
 	    for (String word : solver.getAllValidWords(board)) {
 	        StdOut.println(word);
 	        score += solver.scoreOf(word);
 	    }
-	    StdOut.println("Score = " + score);	    
+	    StdOut.println("Score = " + score);	   
 	    
-	    
-//	    score = 0;
-//	    for (String word : solver.getAllValidWords(board2)) {
-//	        StdOut.println(word);
-//	        score += solver.scoreOf(word);
-//	    }
-//	    StdOut.println("Score = " + score);
 	}
 }
