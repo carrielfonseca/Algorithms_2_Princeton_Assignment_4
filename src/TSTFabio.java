@@ -2,60 +2,24 @@ import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 
-/******************************************************************************
- *  Compilation:  javac TST.java
- *  Execution:    java TST < words.txt
- *  Dependencies: StdIn.java
- *  Data files:   https://algs4.cs.princeton.edu/52trie/shellsST.txt
- *
- *  Symbol table with string keys, implemented using a ternary search
- *  trie (TST).
- *
- *
- *  % java TST < shellsST.txt
- *  keys(""):
- *  by 4
- *  sea 6
- *  sells 1
- *  she 0
- *  shells 3
- *  shore 7
- *  the 5
- *
- *  longestPrefixOf("shellsort"):
- *  shells
- *
- *  keysWithPrefix("shor"):
- *  shore
- *
- *  keysThatMatch(".he.l."):
- *  shells
- *
- *  % java TST
- *  theory the now is the time for all good men
- *
- *  Remarks
- *  --------
- *    - can't use a key that is the empty string ""
- *
- ******************************************************************************/
-
-
 
 public class TSTFabio<Value> {
     private int n;              // size
     private Node<Value> root;   // root of TST
+    private Node<Value> current; //lastNode in the TST
 
     private static class Node<Value> {
         private char c;                        // character
         private Node<Value> left, mid, right;  // left, middle, and right subtries
         private Value val;                     // value associated with string
+        
     }
 
     /**
      * Initializes an empty string symbol table.
      */
     public TSTFabio() {
+    	current = root;
     }
 
     /**
@@ -202,9 +166,17 @@ public class TSTFabio<Value> {
             throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
         }
         Queue<String> queue = new Queue<String>();
-        Node<Value> x = get(root, prefix, 0);
+        
+        Node<Value> x = get(current, prefix, 0);
+        if (x == null) {
+        	x = get(root, prefix, 0); 
+        }
+        
         if (x == null) return false;
-        if (x.val != null) queue.enqueue(prefix);
+        if (x.val != null) {
+        	queue.enqueue(prefix);
+        	current = x; //updates the current Node
+        }
         collectKey(x.mid, new StringBuilder(prefix), queue);
         return !queue.isEmpty();
     }
@@ -251,6 +223,7 @@ public class TSTFabio<Value> {
         collect(x.left,  prefix, queue);
         if (x.val != null) {
         	queue.enqueue(prefix.toString() + x.c);
+        	current = x; //updates current node
         	return;
         }
         collect(x.mid,   prefix.append(x.c), queue);
