@@ -131,7 +131,10 @@ public class MultiwayTrieFabio<Value> {
 
 	private void collectKey(Node x, StringBuilder prefix, Queue<String> queue) {
 		if (x == null)	return;
-		if (x.val != null)	queue.enqueue(prefix.toString());
+		if (x.val != null)	{
+			queue.enqueue(prefix.toString());
+			return;  //dont continue if finds one key with prefix
+		}
 		for (char c = 0; c < R; c++) {
 			prefix.append(c);
 			collect(x.next[c], prefix, queue);
@@ -141,7 +144,7 @@ public class MultiwayTrieFabio<Value> {
 
     private void collect(Node x, StringBuilder prefix, Queue<String> results) {
         if (x == null) return;
-        if (x.val != null) results.enqueue(prefix.toString());
+        if (x.val != null)  results.enqueue(prefix.toString());
         for (char c = 0; c < R; c++) {
             prefix.append(c);
             collect(x.next[c], prefix, results);
