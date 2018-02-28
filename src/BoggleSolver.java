@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +11,7 @@ import edu.princeton.cs.algs4.TST;
 public class BoggleSolver {
 
 	private TST<Boolean> dictionaryInTrie = new TST<>(); // ternary search tries
-	private Bag<Integer>[] adj; // adjacent squares that can be visited from each vertex
+	private ArrayList<Bag<Integer>> adj; // adjacent squares that can be visited from each vertex
 	private boolean[] marked;  //if true, means the cell is already visited in a certain path in the Boggle Boad
 
     // Initializes the data structure using the given array of strings as the dictionary.
@@ -23,9 +24,9 @@ public class BoggleSolver {
 
     // Returns the set of all valid words in the given Boggle board, as an Iterable.
     public Iterable<String> getAllValidWords(BoggleBoard board) {
-    	adj = (Bag<Integer>[]) new Bag[board.rows()*board.cols()];
-    	for (int v = 0; v < adj.length; v++) {
-            adj[v] = new Bag<Integer>();
+    	adj =  new ArrayList<>(board.rows()*board.cols());
+    	for (int v = 0; v < board.rows()*board.cols(); v++) {
+            adj.add(new Bag<Integer>()) ;
         }
     	marked = new boolean[board.rows()*board.cols()];
     	buildsNeighboors(board);
@@ -86,7 +87,7 @@ public class BoggleSolver {
     			
     			if (l >= 0 && l <= (numberOfRows-1) && m >= 0 && m <= (numberOfCols-1)
     			    && !(l == i && m == j)) {
-    				adj[vertexIndex].add(vertexIndex(l, m, numberOfRows, numberOfCols));
+    				adj.get(vertexIndex).add(vertexIndex(l, m, numberOfRows, numberOfCols));
     			}
     		}
     	}
@@ -112,7 +113,7 @@ public class BoggleSolver {
     	if (dictionaryInTrie.contains(word) && word.length() >= 3) { 
     		words.add(word);
     	}
-    	for (int v : adj[vertex]) {
+    	for (int v : adj.get(vertex)) {
     		Queue<String> keysWithPrefix = (Queue<String>) dictionaryInTrie.keysWithPrefix(word);
     		//does not need to visit a square if you know there arent any words that start with those caracters
     		if (!marked[v] && !keysWithPrefix.isEmpty()) {
@@ -146,7 +147,7 @@ public class BoggleSolver {
 		In in = new In("dictionary-yawl.txt");
 	    String[] dictionary = in.readAllStrings();
 	    BoggleSolver solver = new BoggleSolver(dictionary);
-	    BoggleBoard board = new BoggleBoard("board-aqua.txt");
+	    BoggleBoard board = new BoggleBoard("board-points26539.txt");
 //	    BoggleBoard board2 = new BoggleBoard("board-points4527.txt");
 	    System.out.println(board);
 	    int score = 0;
