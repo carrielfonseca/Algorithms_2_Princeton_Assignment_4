@@ -30,7 +30,7 @@ public class BoggleSolver {
     	buildsNeighboors(board);
     	Set<String> validWords = new HashSet<>();
     	for (int i = 0; i < board.rows()*board.cols(); i++) {    	
-    		visitSquare(board, i ,"", validWords);    	
+    		visitSquare(board, i , new StringBuilder(""), validWords);    	
     	}
     	return validWords;    	
     }
@@ -102,29 +102,30 @@ public class BoggleSolver {
 		}
     }
     
-    private void visitSquare(BoggleBoard board,  int vertex, String word, Set<String> words) {
+    private void visitSquare(BoggleBoard board,  int vertex, StringBuilder word, Set<String> words) {
     	marked[vertex] = true;
     	String boardLetter = "" +  board.getLetter(rowOfVertex(vertex,  board.rows(), board.cols()), colOfVertex(vertex,  board.rows(), board.cols()));
     	// makes a correction for the special case of letter "Q"
     	if (boardLetter.equalsIgnoreCase("Q")) {
     		boardLetter = "QU"; 
     	}
-    	word = word + boardLetter;
+    	word.append(boardLetter);
     	// word must be in the dictionary AND have at least 3 letters
-    	if (dictionaryInTrie.contains(word) && word.length() >= 3) { 
-    		words.add(word);
+    	if (dictionaryInTrie.contains(word.toString()) && word.length() >= 3) { 
+    		words.add(word.toString());
     	}
     	for (int v : adj.get(vertex)) {
     		//does not need to visit a square if you know there arent any words that start with those caracters
-    		if (!marked[v] && dictionaryInTrie.hasKeysWithPrefix(word)) {
+    		if (!marked[v] && dictionaryInTrie.hasKeysWithPrefix(word.toString())) {
     			visitSquare(board, v, word, words);
     		}
     	}
     	if (boardLetter.equalsIgnoreCase("Qu")) {
-    		word = word.substring(0, word.length()-2); //takes out the last 2 characters of the word if finds a Q
+    		word.deleteCharAt(word.length()-1); //takes out the last 2 characters of the word if finds a Q
+    		word.deleteCharAt(word.length()-1);
     	}
     	else {
-    		word = word.substring(0, word.length()-1); //takes out the last character of the word if not a Q
+    		word.deleteCharAt(word.length()-1); //takes out the last character of the word if not a Q
     	}
     	
     	marked[vertex] = false;
@@ -144,18 +145,17 @@ public class BoggleSolver {
 //		String word = "H";
 //		word = word.substring(0, word.length()-1);
 //		System.out.println(word);
-		In in = new In("dictionary-algs4.txt");
+		In in = new In("dictionary-yawl.txt");
 	    String[] dictionary = in.readAllStrings();
 	    BoggleSolver solver = new BoggleSolver(dictionary);
-//	    BoggleBoard board = new BoggleBoard("board-points26539.txt");
-//	    System.out.println(board);
-//	    int score = 0;
-//	    for (String word : solver.getAllValidWords(board)) {
-//	        StdOut.println(word);
-//	        score += solver.scoreOf(word);
-//	    }
-//	    StdOut.println("Score = " + score);
-	    StdOut.println(solver.scoreOf("POSTBOY"));
+	    BoggleBoard board = new BoggleBoard("board-points26539.txt");
+	    System.out.println(board);
+	    int score = 0;
+	    for (String word : solver.getAllValidWords(board)) {
+	        StdOut.println(word);
+	        score += solver.scoreOf(word);
+	    }
+	    StdOut.println("Score = " + score);
 	    
 	}
 }
