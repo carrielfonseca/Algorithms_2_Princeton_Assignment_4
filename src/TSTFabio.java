@@ -58,16 +58,7 @@ public class TSTFabio<Value> {
             throw new IllegalArgumentException("calls get() with null argument");
         }
         if (key.length() == 0) throw new IllegalArgumentException("key must have length >= 1");
-        
-        Node<Value> startNode = root;
-        int startDigit = 0;
-        if (key.length() >= 2 && key.length() > currentWord.length() &&
-        		currentWord.equalsIgnoreCase(key.substring(0, key.length()-1))) {
-        	startNode = currentNode;
-        	startDigit = currentWord.length();
-        }        
-        
-        Node<Value> x = get(startNode, key, startDigit);
+        Node<Value> x = get(root, key, 0);
         if (x == null) return null;
         return x.val;
     }
