@@ -223,34 +223,58 @@ public class TSTFabio<Value> {
         if (prefix == null) {
             throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
         }
+        Queue<String> queue = new Queue<String>();
         Node<Value> x = get(root, prefix, 0);
         if (x == null) return false;
-        if (x.val != null) return true;
-	    boolean haskeyWithPrefix = hasKeysWithPrefix(x.mid, prefix);   
-	    return haskeyWithPrefix;        
+        if (x.val != null) queue.enqueue(prefix);
+        collectKey(x.mid, new StringBuilder(prefix), queue);
+        return !queue.isEmpty();
     }
     
-    private boolean hasKeysWithPrefix(Node<Value> x, String prefix) {
-    	boolean hasKeyWithPrefix = false;
-    	
-    	if (x != null) {
-    		if (x.val != null) return true;
-    		hasKeyWithPrefix = hasKeysWithPrefix(x.left, prefix);
-			
-			prefix = prefix + x.c;
-			hasKeyWithPrefix = hasKeysWithPrefix(x.mid, prefix);
-			prefix = prefix.substring(0, prefix.length()-1);
-			hasKeyWithPrefix = hasKeysWithPrefix(x.right, prefix);
-    	}
-    	
-    	return hasKeyWithPrefix;
-    }
+//    public boolean hasKeysWithPrefix(String prefix) {
+//        if (prefix == null) {
+//            throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
+//        }
+//        Node<Value> x = get(root, prefix, 0);
+//        if (x == null) return false;
+//        if (x.val != null) return true;
+//	    boolean haskeyWithPrefix = hasKeysWithPrefix(x.mid, prefix);   
+//	    return haskeyWithPrefix;        
+//    }
+//    
+//    private boolean hasKeysWithPrefix(Node<Value> x, String prefix) {
+//    	boolean hasKeyWithPrefix = false;
+//    	
+//    	if (x != null) {
+//    		if (x.val != null) return true;
+//    		hasKeyWithPrefix = hasKeysWithPrefix(x.left, prefix);
+//			
+//			prefix = prefix + x.c;
+//			hasKeyWithPrefix = hasKeysWithPrefix(x.mid, prefix);
+//			prefix = prefix.substring(0, prefix.length()-1);
+//			hasKeyWithPrefix = hasKeysWithPrefix(x.right, prefix);
+//    	}
+//    	
+//    	return hasKeyWithPrefix;
+//    }
 
     // all keys in subtrie rooted at x with given prefix
     private void collect(Node<Value> x, StringBuilder prefix, Queue<String> queue) {
         if (x == null) return;
         collect(x.left,  prefix, queue);
         if (x.val != null) queue.enqueue(prefix.toString() + x.c);
+        collect(x.mid,   prefix.append(x.c), queue);
+        prefix.deleteCharAt(prefix.length() - 1);
+        collect(x.right, prefix, queue);
+    }
+    
+    private void collectKey(Node<Value> x, StringBuilder prefix, Queue<String> queue) {
+        if (x == null) return;
+        collect(x.left,  prefix, queue);
+        if (x.val != null) {
+        	queue.enqueue(prefix.toString() + x.c);
+        	return;
+        }
         collect(x.mid,   prefix.append(x.c), queue);
         prefix.deleteCharAt(prefix.length() - 1);
         collect(x.right, prefix, queue);
