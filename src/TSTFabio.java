@@ -6,7 +6,8 @@ import edu.princeton.cs.algs4.StdOut;
 public class TSTFabio<Value> {
     private int n;              // size
     private Node<Value> root;   // root of TST
-    private Node<Value> current; //lastNode in the TST
+    private Node<Value> currentNode; //lastNode in the TST
+    private String currentWord;
 
     private static class Node<Value> {
         private char c;                        // character
@@ -19,7 +20,8 @@ public class TSTFabio<Value> {
      * Initializes an empty string symbol table.
      */
     public TSTFabio() {
-    	current = root;
+    	currentNode = root;
+    	currentWord = "";
     }
 
     /**
@@ -165,15 +167,20 @@ public class TSTFabio<Value> {
         if (prefix == null) {
             throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
         }
-        Queue<String> queue = new Queue<String>();        
-        Node<Value> x = get(current, prefix, 0);
-        if (x == null) {
-        	x = get(root, prefix, 0); 
+        Queue<String> queue = new Queue<String>();
+        Node<Value> startNode = root;
+        int startDigit = 0;
+        if (prefix.length() >= 2 && prefix.length() > currentWord.length() &&
+        		currentWord.equalsIgnoreCase(prefix.substring(0,prefix.length()-1))) {
+        	startNode = currentNode;
+        	startDigit = currentWord.length();
         }        
+        Node<Value> x = get(startNode, prefix, startDigit);             
         if (x == null) return false;
         if (x.val != null) {
         	queue.enqueue(prefix);
-        	current = x; //updates the current Node
+        	currentNode = x; //updates the current Node and startDigit
+        	startDigit = prefix.length();
         }
         collectKey(x.mid, new StringBuilder(prefix), queue);
         return !queue.isEmpty();
@@ -221,7 +228,7 @@ public class TSTFabio<Value> {
         collect(x.left,  prefix, queue);
         if (x.val != null) {
         	queue.enqueue(prefix.toString() + x.c);
-        	current = x; //updates current node
+        	currentNode = x; //updates current node
         	return;
         }
         collect(x.mid,   prefix.append(x.c), queue);
