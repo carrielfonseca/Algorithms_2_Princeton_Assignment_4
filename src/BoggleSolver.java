@@ -12,6 +12,7 @@ public class BoggleSolver {
 	private ArrayList<Bag<Integer>> adj; // adjacent squares that can be visited from each vertex
 	private boolean[] marked;  //if true, means the cell is already visited in a certain path in the Boggle Boad
 	private char[] charVertex; //the chararcter of the ith vertex
+	private StringBuilder stringBuilder;
 
     // Initializes the data structure using the given array of strings as the dictionary.
     // (You can assume each word in the dictionary contains only the uppercase letters A through Z.)
@@ -19,6 +20,7 @@ public class BoggleSolver {
     	for (String word : dictionary) {    		
     		dictionaryInTrie.put(word, true);    		
     	}
+    	stringBuilder = new StringBuilder("");
     }
 
     // Returns the set of all valid words in the given Boggle board, as an Iterable.
@@ -33,7 +35,9 @@ public class BoggleSolver {
     	buildsNeighboors(board);
     	Set<String> validWords = new HashSet<>();
     	for (int i = 0; i < board.rows()*board.cols(); i++) {    	
-    		visitSquare(board, i , new StringBuilder(""), validWords);    	
+    		visitSquare(board, i , stringBuilder, validWords);
+    		stringBuilder.setLength(0); // set length of buffer to 0
+    		stringBuilder.trimToSize(); // trim the underlying buffer
     	}
     	return validWords;    	
     }
@@ -106,12 +110,11 @@ public class BoggleSolver {
     
     private void visitSquare(BoggleBoard board,  int vertex, StringBuilder word, Set<String> words) {
     	marked[vertex] = true;
-    	String boardLetter = "" + charVertex[vertex];
+    	word.append(charVertex[vertex]);
     	// makes a correction for the special case of letter "Q"
-    	if (boardLetter.equalsIgnoreCase("Q")) {
-    		boardLetter = "QU"; 
-    	}
-    	word.append(boardLetter);
+    	if (charVertex[vertex] == 'Q') {
+    		word.append("U");
+    	}   	    	
     	// word must be in the dictionary AND have at least 3 letters
     	if (dictionaryInTrie.contains(word.toString()) && word.length() >= 3) { 
     		words.add(word.toString());
@@ -122,7 +125,7 @@ public class BoggleSolver {
     			visitSquare(board, v, word, words);
     		}
     	}
-    	if (boardLetter.equalsIgnoreCase("Qu")) {
+    	if (charVertex[vertex] == 'Q') {
     		word.deleteCharAt(word.length()-1); //takes out the last 2 characters of the word if finds a Q
     		word.deleteCharAt(word.length()-1);
     	}

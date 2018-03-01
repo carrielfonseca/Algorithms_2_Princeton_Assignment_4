@@ -6,8 +6,8 @@ import edu.princeton.cs.algs4.StdOut;
 public class TSTFabio<Value> {
     private int n;              // size
     private Node<Value> root;   // root of TST
-    private Node<Value> currentNode; //lastNode in the TST
-    private String currentWord;
+//    private Node<Value> currentNode; //lastNode in the TST
+//    private String currentWord;
 
     private static class Node<Value> {
         private char c;                        // character
@@ -19,9 +19,7 @@ public class TSTFabio<Value> {
     /**
      * Initializes an empty string symbol table.
      */
-    public TSTFabio() {
-    	currentNode = root;
-    	currentWord = "";
+    public TSTFabio() {   
     }
 
     /**
@@ -108,19 +106,11 @@ public class TSTFabio<Value> {
             throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
         }
         Queue<String> queue = new Queue<String>();
-        Node<Value> startNode = root;
-        int startDigit = 0;
-        if (prefix.length() >= 2 && prefix.length() > currentWord.length() &&
-        		currentWord.equalsIgnoreCase(prefix.substring(0,prefix.length()-1))) {
-        	startNode = currentNode;
-        	startDigit = currentWord.length();
-        }        
-        Node<Value> x = get(startNode, prefix, startDigit);             
+        
+        Node<Value> x = get(root, prefix, 0);             
         if (x == null) return false;
         if (x.val != null) {
         	queue.enqueue(prefix);
-        	currentNode = x; //updates the current Node and startDigit
-        	startDigit = prefix.length();
         }
         collectKey(x.mid, new StringBuilder(prefix), queue);
         return !queue.isEmpty();
@@ -131,7 +121,6 @@ public class TSTFabio<Value> {
         collectKey(x.left,  prefix, queue);
         if (x.val != null) {
         	queue.enqueue(prefix.toString() + x.c);
-        	currentNode = x; //updates current node
         	return;
         }
         collectKey(x.mid,   prefix.append(x.c), queue);
