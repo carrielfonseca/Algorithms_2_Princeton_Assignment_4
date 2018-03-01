@@ -8,9 +8,10 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class BoggleSolver {
 
-	private MultiwayTrieFabio<Boolean> dictionaryInTrie = new MultiwayTrieFabio<>(); // ternary search tries
+	private TSTFabio<Boolean> dictionaryInTrie = new TSTFabio<>(); // ternary search tries
 	private ArrayList<Bag<Integer>> adj; // adjacent squares that can be visited from each vertex
 	private boolean[] marked;  //if true, means the cell is already visited in a certain path in the Boggle Boad
+	private char[] charVertex; //the chararcter of the ith vertex
 
     // Initializes the data structure using the given array of strings as the dictionary.
     // (You can assume each word in the dictionary contains only the uppercase letters A through Z.)
@@ -23,8 +24,10 @@ public class BoggleSolver {
     // Returns the set of all valid words in the given Boggle board, as an Iterable.
     public Iterable<String> getAllValidWords(BoggleBoard board) {
     	adj =  new ArrayList<>(board.rows()*board.cols());
+    	charVertex = new char[board.rows()*board.cols()];
     	for (int v = 0; v < board.rows()*board.cols(); v++) {
-            adj.add(new Bag<Integer>()) ;
+            adj.add(new Bag<Integer>());
+            charVertex[v] = board.getLetter(rowOfVertex(v,board.rows(), board.cols()), colOfVertex(v,board.rows(), board.cols()));
         }
     	marked = new boolean[board.rows()*board.cols()];
     	buildsNeighboors(board);
@@ -87,7 +90,6 @@ public class BoggleSolver {
     			//if within boudaries AND not the same square (cannot have self reference)     			
     			if (l >= 0 && l <= (numberOfRows-1) && m >= 0 && m <= (numberOfCols-1)
     			    && !(l == i && m == j)) {
-
     				adj.get(vertexIndex).add(vertexIndex(l, m, numberOfRows, numberOfCols));
     			}
     		}
@@ -104,7 +106,7 @@ public class BoggleSolver {
     
     private void visitSquare(BoggleBoard board,  int vertex, StringBuilder word, Set<String> words) {
     	marked[vertex] = true;
-    	String boardLetter = "" +  board.getLetter(rowOfVertex(vertex,  board.rows(), board.cols()), colOfVertex(vertex,  board.rows(), board.cols()));
+    	String boardLetter = "" + charVertex[vertex];
     	// makes a correction for the special case of letter "Q"
     	if (boardLetter.equalsIgnoreCase("Q")) {
     		boardLetter = "QU"; 
@@ -131,16 +133,6 @@ public class BoggleSolver {
     	marked[vertex] = false;
     }
     
-    private int countStringOccurrences(String s, String stringToCount) {    	
-    	int counter = 0;
-    	for(int i=0; i<(s.length()-stringToCount.length()+1); i++) {
-    	    if( (s.substring(i, i+stringToCount.length())).equalsIgnoreCase(stringToCount)) {
-    	        counter++;
-    	    } 
-    	}
-    	return counter;
-    }
-	
 	public static void main(String[] args) {
 //		String word = "H";
 //		word = word.substring(0, word.length()-1);
@@ -157,14 +149,5 @@ public class BoggleSolver {
 	    }
 	    StdOut.println("Score = " + score);
 
-//		char c = 65;
-//		char d = 3;
-//		char e = (char) (c + d);
-//		System.out.println(c++);	
-//		
-//		for (int i = 0; i < 256; i++) {
-//			System.out.println(c++);	
-//		}
-		
 	}
 }
