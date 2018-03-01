@@ -51,7 +51,7 @@ public class MultiwayTrieFabio<Value> {
     private Node get(Node x, String key, int d) {
         if (x == null) return null;
         if (d == key.length()) return x;
-        char c = (char) (key.charAt(d) -  OFFSET) ;        
+        char c = (char) (key.charAt(d) -  'A') ;        
         return get(x.next[c], key, d+1);
     }
 
@@ -76,7 +76,7 @@ public class MultiwayTrieFabio<Value> {
             x.val = val;
             return x;
         }
-        char c = (char) (key.charAt(d) - OFFSET);
+        char c = (char) (key.charAt(d) - 'A');
         x.next[c] = put(x.next[c], key, val, d+1);
         return x;
     }
@@ -104,7 +104,7 @@ public class MultiwayTrieFabio<Value> {
 			return;  //dont continue if finds one key with prefix
 		}
 		for (char c = 0; c < R; c++) {
-			prefix.append(c+ OFFSET);
+			prefix.append(((char)(c+ 'A')));
 			collectKey(x.next[c], prefix, queue);
 			prefix.deleteCharAt(prefix.length() - 1);
 		}
