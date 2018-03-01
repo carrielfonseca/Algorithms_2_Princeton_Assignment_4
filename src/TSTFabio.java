@@ -103,67 +103,7 @@ public class TSTFabio<Value> {
         return x;
     }
 
-    /**
-     * Returns the string in the symbol table that is the longest prefix of {@code query},
-     * or {@code null}, if no such string.
-     * @param query the query string
-     * @return the string in the symbol table that is the longest prefix of {@code query},
-     *     or {@code null} if no such string
-     * @throws IllegalArgumentException if {@code query} is {@code null}
-     */
-    public String longestPrefixOf(String query) {
-        if (query == null) {
-            throw new IllegalArgumentException("calls longestPrefixOf() with null argument");
-        }
-        if (query.length() == 0) return null;
-        int length = 0;
-        Node<Value> x = root;
-        int i = 0;
-        while (x != null && i < query.length()) {
-            char c = query.charAt(i);
-            if      (c < x.c) x = x.left;
-            else if (c > x.c) x = x.right;
-            else {
-                i++;
-                if (x.val != null) length = i;
-                x = x.mid;
-            }
-        }
-        return query.substring(0, length);
-    }
-
-    /**
-     * Returns all keys in the symbol table as an {@code Iterable}.
-     * To iterate over all of the keys in the symbol table named {@code st},
-     * use the foreach notation: {@code for (Key key : st.keys())}.
-     * @return all keys in the symbol table as an {@code Iterable}
-     */
-    public Iterable<String> keys() {
-        Queue<String> queue = new Queue<String>();
-        collect(root, new StringBuilder(), queue);
-        return queue;
-    }
-
-    /**
-     * Returns all of the keys in the set that start with {@code prefix}.
-     * @param prefix the prefix
-     * @return all of the keys in the set that start with {@code prefix},
-     *     as an iterable
-     * @throws IllegalArgumentException if {@code prefix} is {@code null}
-     */
-    public Iterable<String> keysWithPrefix(String prefix) {
-        if (prefix == null) {
-            throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
-        }
-        Queue<String> queue = new Queue<String>();
-        Node<Value> x = get(root, prefix, 0);
-        if (x == null) return queue;
-        if (x.val != null) queue.enqueue(prefix);
-        collect(x.mid, new StringBuilder(prefix), queue);
-        return queue;
-    }
-    
-    public boolean hasKeysWithPrefix(String prefix) {
+     public boolean hasKeysWithPrefix(String prefix) {
         if (prefix == null) {
             throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
         }
@@ -185,125 +125,18 @@ public class TSTFabio<Value> {
         collectKey(x.mid, new StringBuilder(prefix), queue);
         return !queue.isEmpty();
     }
-    
-//    public boolean hasKeysWithPrefix(String prefix) {
-//        if (prefix == null) {
-//            throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
-//        }
-//        Node<Value> x = get(root, prefix, 0);
-//        if (x == null) return false;
-//        if (x.val != null) return true;
-//	    boolean haskeyWithPrefix = hasKeysWithPrefix(x.mid, prefix);   
-//	    return haskeyWithPrefix;        
-//    }
-//    
-//    private boolean hasKeysWithPrefix(Node<Value> x, String prefix) {
-//    	boolean hasKeyWithPrefix = false;
-//    	
-//    	if (x != null) {
-//    		if (x.val != null) return true;
-//    		hasKeyWithPrefix = hasKeysWithPrefix(x.left, prefix);
-//			
-//			prefix = prefix + x.c;
-//			hasKeyWithPrefix = hasKeysWithPrefix(x.mid, prefix);
-//			prefix = prefix.substring(0, prefix.length()-1);
-//			hasKeyWithPrefix = hasKeysWithPrefix(x.right, prefix);
-//    	}
-//    	
-//    	return hasKeyWithPrefix;
-//    }
-
-    // all keys in subtrie rooted at x with given prefix
-    private void collect(Node<Value> x, StringBuilder prefix, Queue<String> queue) {
-        if (x == null) return;
-        collect(x.left,  prefix, queue);
-        if (x.val != null) queue.enqueue(prefix.toString() + x.c);
-        collect(x.mid,   prefix.append(x.c), queue);
-        prefix.deleteCharAt(prefix.length() - 1);
-        collect(x.right, prefix, queue);
-    }
-    
+     
     private void collectKey(Node<Value> x, StringBuilder prefix, Queue<String> queue) {
         if (x == null) return;
-        collect(x.left,  prefix, queue);
+        collectKey(x.left,  prefix, queue);
         if (x.val != null) {
         	queue.enqueue(prefix.toString() + x.c);
         	currentNode = x; //updates current node
         	return;
         }
-        collect(x.mid,   prefix.append(x.c), queue);
+        collectKey(x.mid,   prefix.append(x.c), queue);
         prefix.deleteCharAt(prefix.length() - 1);
-        collect(x.right, prefix, queue);
-    }
-
-
-    /**
-     * Returns all of the keys in the symbol table that match {@code pattern},
-     * where . symbol is treated as a wildcard character.
-     * @param pattern the pattern
-     * @return all of the keys in the symbol table that match {@code pattern},
-     *     as an iterable, where . is treated as a wildcard character.
-     */
-    public Iterable<String> keysThatMatch(String pattern) {
-        Queue<String> queue = new Queue<String>();
-        collect(root, new StringBuilder(), 0, pattern, queue);
-        return queue;
-    }
- 
-    private void collect(Node<Value> x, StringBuilder prefix, int i, String pattern, Queue<String> queue) {
-        if (x == null) return;
-        char c = pattern.charAt(i);
-        if (c == '.' || c < x.c) collect(x.left, prefix, i, pattern, queue);
-        if (c == '.' || c == x.c) {
-            if (i == pattern.length() - 1 && x.val != null) queue.enqueue(prefix.toString() + x.c);
-            if (i < pattern.length() - 1) {
-                collect(x.mid, prefix.append(x.c), i+1, pattern, queue);
-                prefix.deleteCharAt(prefix.length() - 1);
-            }
-        }
-        if (c == '.' || c > x.c) collect(x.right, prefix, i, pattern, queue);
-    }
-
-
-    /**
-     * Unit tests the {@code TST} data type.
-     *
-     * @param args the command-line arguments
-     */
-    public static void main(String[] args) {
-
-        // build symbol table from standard input
-        TSTFabio<Integer> st = new TSTFabio<Integer>();
-        for (int i = 0; !StdIn.isEmpty(); i++) {
-            String key = StdIn.readString();
-            st.put(key, i);
-        }
-
-        // print results
-        if (st.size() < 100) {
-            StdOut.println("keys(\"\"):");
-            for (String key : st.keys()) {
-                StdOut.println(key + " " + st.get(key));
-            }
-            StdOut.println();
-        }
-
-        StdOut.println("longestPrefixOf(\"shellsort\"):");
-        StdOut.println(st.longestPrefixOf("shellsort"));
-        StdOut.println();
-
-        StdOut.println("longestPrefixOf(\"shell\"):");
-        StdOut.println(st.longestPrefixOf("shell"));
-        StdOut.println();
-
-        StdOut.println("keysWithPrefix(\"shor\"):");
-        for (String s : st.keysWithPrefix("shor"))
-            StdOut.println(s);
-        StdOut.println();
-
-        StdOut.println("keysThatMatch(\".he.l.\"):");
-        for (String s : st.keysThatMatch(".he.l."))
-            StdOut.println(s);
-    }
+        collectKey(x.right, prefix, queue);
+    }    
 }
 
