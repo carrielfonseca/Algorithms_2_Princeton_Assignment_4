@@ -8,7 +8,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class BoggleSolver {
 
-	private TSTFabio<Boolean> dictionaryInTrie = new TSTFabio<>(); // ternary search tries
+	private MultiwayTrieFabio<Boolean> dictionaryInTrie = new MultiwayTrieFabio<>(); // ternary search tries
 	private ArrayList<Bag<Integer>> adj; // adjacent squares that can be visited from each vertex
 	private boolean[] marked;  //if true, means the cell is already visited in a certain path in the Boggle Boad
 	private char[] charVertex; //the chararcter of the ith vertex
@@ -20,7 +20,7 @@ public class BoggleSolver {
     	for (String word : dictionary) {    		
     		dictionaryInTrie.put(word, true);    		
     	}
-    	stringBuilder = new StringBuilder("");
+    	stringBuilder = new StringBuilder();
     }
 
     // Returns the set of all valid words in the given Boggle board, as an Iterable.
