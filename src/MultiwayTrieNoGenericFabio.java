@@ -7,6 +7,7 @@ public class MultiwayTrieNoGenericFabio {
     private Node root;      // root of trie
     private int n;          // number of keys in trie
     private boolean hasPrefix;
+    private Node currentNode;
 
     // R-way trie node
     private static class Node {
@@ -19,6 +20,7 @@ public class MultiwayTrieNoGenericFabio {
      */
     public MultiwayTrieNoGenericFabio() {
     	hasPrefix = false;
+    	currentNode = root;
     }
 
 
@@ -134,16 +136,38 @@ public class MultiwayTrieNoGenericFabio {
 	
 	//non-recursive implementation
 	public boolean hasKeysWithPrefix(StringBuilder prefix) {
-        Node x = root;
+		Node x = currentNode;
         for (int i = 0; i < prefix.length() && x != null; i++)
             x = x.next[(char) (prefix.charAt(i)- 'A')];
+		
+		
+		if (x == null) {
+			x = root;
+	        for (int i = 0; i < prefix.length() && x != null; i++)
+	            x = x.next[(char) (prefix.charAt(i)- 'A')];
+		}
+        
+        
+        currentNode = x;
+        
         return x != null;
     }
 	
 	public boolean hasKeysWithPrefix(String prefix) {
-        Node x = root;
+		Node x = currentNode;
         for (int i = 0; i < prefix.length() && x != null; i++)
             x = x.next[(char) (prefix.charAt(i)- 'A')];
+		
+		
+		if (x == null) {
+			x = root;
+	        for (int i = 0; i < prefix.length() && x != null; i++)
+	            x = x.next[(char) (prefix.charAt(i)- 'A')];
+		}
+        
+        
+        currentNode = x;
+        
         return x != null;
     }
 	
