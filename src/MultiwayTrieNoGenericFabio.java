@@ -110,49 +110,7 @@ public class MultiwayTrieNoGenericFabio {
         return n;
     }
     
-    
-    // recursive implementation
-//	public boolean hasKeysWithPrefix(String prefix) {
-//		boolean hasPrefix;
-//		Node x = get(root, prefix, 0);
-//		collectKey(x, new StringBuilder(prefix));
-//		hasPrefix = this.hasPrefix;
-//		this.hasPrefix = false;
-//		return hasPrefix;
-//	}
-    
-	private void collectKey(Node x, StringBuilder prefix) {
-		if (x == null)	return;
-		if (x.val != false)	{
-			hasPrefix = true;
-			return;  //dont continue if finds one key with prefix
-		}
-		for (char c = 0; c < R; c++) {
-			prefix.append(((char)(c+ 'A')));
-			collectKey(x.next[c], prefix);
-			prefix.deleteCharAt(prefix.length() - 1);
-		}
-	}
-	
 	//non-recursive implementation
-	public boolean hasKeysWithPrefix(StringBuilder prefix) {
-		Node x = currentNode;
-        for (int i = 0; i < prefix.length() && x != null; i++)
-            x = x.next[(char) (prefix.charAt(i)- 'A')];
-		
-		
-		if (x == null) {
-			x = root;
-	        for (int i = 0; i < prefix.length() && x != null; i++)
-	            x = x.next[(char) (prefix.charAt(i)- 'A')];
-		}
-        
-        
-        currentNode = x;
-        
-        return x != null;
-    }
-	
 	public boolean hasKeysWithPrefix(String prefix) {
 		Node x = currentNode;
         for (int i = 0; i < prefix.length() && x != null; i++)
@@ -170,11 +128,29 @@ public class MultiwayTrieNoGenericFabio {
         
         return x != null;
     }
-	
-
-
-
-
+    
+    // recursive implementation
+//	public boolean hasKeysWithPrefix(String prefix) {
+//		boolean hasPrefix;
+//		Node x = get(root, prefix, 0);
+//		collectKey(x, new StringBuilder(prefix));
+//		hasPrefix = this.hasPrefix;
+//		this.hasPrefix = false;
+//		return hasPrefix;
+//	}
+//    
+//	private void collectKey(Node x, StringBuilder prefix) {
+//		if (x == null)	return;
+//		if (x.val != false)	{
+//			hasPrefix = true;
+//			return;  //dont continue if finds one key with prefix
+//		}
+//		for (char c = 0; c < R; c++) {
+//			prefix.append(((char)(c+ 'A')));
+//			collectKey(x.next[c], prefix);
+//			prefix.deleteCharAt(prefix.length() - 1);
+//		}
+//	}
 
 	/**
      * Removes the key from the set if the key is present.
