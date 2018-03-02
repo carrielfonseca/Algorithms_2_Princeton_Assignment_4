@@ -8,17 +8,19 @@ public class MultiwayTrieNoGenericFabio {
     private static final char OFFSET = 65; 
     private Node root;      // root of trie
     private int n;          // number of keys in trie
+    private boolean hasPrefix;
 
     // R-way trie node
     private static class Node {
         private boolean val;
-        private Node[] next = new Node[R];
+        private Node[] next = new Node[R];        
     }
 
    /**
      * Initializes an empty string symbol table.
      */
     public MultiwayTrieNoGenericFabio() {
+    	hasPrefix = false;
     }
 
 
@@ -90,22 +92,24 @@ public class MultiwayTrieNoGenericFabio {
     }
 
 	public boolean hasKeysWithPrefix(String prefix) {
-		Queue<String> queue = new Queue<String>();
+		boolean hasPrefix;
 		Node x = get(root, prefix, 0);
-		collectKey(x, new StringBuilder(prefix), queue);
-		return !queue.isEmpty();
+		collectKey(x, new StringBuilder(prefix));
+		hasPrefix = this.hasPrefix;
+		this.hasPrefix = false;
+		return hasPrefix;
 	}
 
 
-	private void collectKey(Node x, StringBuilder prefix, Queue<String> queue) {
+	private void collectKey(Node x, StringBuilder prefix) {
 		if (x == null)	return;
 		if (x.val != false)	{
-			queue.enqueue(prefix.toString());
+			hasPrefix = true;
 			return;  //dont continue if finds one key with prefix
 		}
 		for (char c = 0; c < R; c++) {
 			prefix.append(((char)(c+ 'A')));
-			collectKey(x.next[c], prefix, queue);
+			collectKey(x.next[c], prefix);
 			prefix.deleteCharAt(prefix.length() - 1);
 		}
 	}
