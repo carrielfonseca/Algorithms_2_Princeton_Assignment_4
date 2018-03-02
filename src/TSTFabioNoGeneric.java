@@ -103,7 +103,7 @@ public class TSTFabioNoGeneric{
         if (prefix == null) {
             throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
         }
-        boolean hasPrefix;
+        boolean hasPrefix = false;
         
         Node x = get(root, prefix, 0);             
         if (x == null) return false;
@@ -124,7 +124,7 @@ public class TSTFabioNoGeneric{
         	return;
         }
         collectKey(x.mid,   prefix.append(x.c));
-        prefix.deleteCharAt(prefix.length());
+        prefix.deleteCharAt(prefix.length() - 1);
         collectKey(x.right, prefix);
     }    
 }
