@@ -25,16 +25,17 @@ public class BoggleSolver {
 
     // Returns the set of all valid words in the given Boggle board, as an Iterable.
     public Iterable<String> getAllValidWords(BoggleBoard board) {
-    	adj =  new ArrayList<>(board.rows()*board.cols());
-    	charVertex = new char[board.rows()*board.cols()];
-    	for (int v = 0; v < board.rows()*board.cols(); v++) {
+    	int n = board.rows()*board.cols();
+    	adj =  new ArrayList<>(n);
+    	charVertex = new char[n];
+    	for (int v = 0; v < n; v++) {
             adj.add(new Bag<Integer>());
             charVertex[v] = board.getLetter(rowOfVertex(v,board.rows(), board.cols()), colOfVertex(v,board.rows(), board.cols()));
         }
-    	marked = new boolean[board.rows()*board.cols()];
+    	marked = new boolean[n];
     	buildsNeighboors(board);
     	Set<String> validWords = new HashSet<>();
-    	for (int i = 0; i < board.rows()*board.cols(); i++) {    	
+    	for (int i = 0; i < n; i++) {    	
     		visitSquare(board, i , stringBuilder, validWords);
     		stringBuilder.setLength(0); // set length of buffer to 0
     		stringBuilder.trimToSize(); // trim the underlying buffer
