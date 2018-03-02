@@ -140,6 +140,13 @@ public class MultiwayTrieNoGenericFabio {
         return x != null;
     }
 	
+	public boolean hasKeysWithPrefix(String prefix) {
+        Node x = root;
+        for (int i = 0; i < prefix.length() && x != null; i++)
+            x = x.next[(char) (prefix.charAt(i)- 'A')];
+        return x != null;
+    }
+	
 
 
 
