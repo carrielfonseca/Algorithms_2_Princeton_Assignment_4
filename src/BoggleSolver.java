@@ -47,22 +47,23 @@ public class BoggleSolver {
     // (You can assume the word contains only the uppercase letters A through Z.)
     public int scoreOf(String word) {
     	int points;
+    	int wordLength = word.length();;
     	if (!dictionaryInTrie.contains(word)) {
     		points = 0;
-    	}
-    	else if (word.length() >= 3 && word.length() <= 4) {
+    	}    	
+    	else if (wordLength >= 3 && wordLength <= 4) {
     		points = 1;
     	} 
-    	else if (word.length() == 5)  {
+    	else if (wordLength == 5)  {
     		points = 2;
     	}
-    	else if (word.length() == 6)  {
+    	else if (wordLength == 6)  {
     		points = 3;
     	}
-    	else if (word.length() == 7)  {
+    	else if (wordLength == 7)  {
     		points = 5;
     	}
-    	else if (word.length() >= 8)  {
+    	else if (wordLength >= 8)  {
     		points = 11;
     	}
     	else {
