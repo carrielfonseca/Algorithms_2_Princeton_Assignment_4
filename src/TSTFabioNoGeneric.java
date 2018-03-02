@@ -1,6 +1,3 @@
-import edu.princeton.cs.algs4.Queue;
-
-
 public class TSTFabioNoGeneric{
     private int n;              // size
     private Node root;   // root of TST
