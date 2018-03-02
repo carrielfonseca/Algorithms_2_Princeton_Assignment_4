@@ -123,7 +123,7 @@ public class BoggleSolver {
     	}
     	for (int v : adj.get(vertex)) {
     		//does not need to visit a square if you know there arent any words that start with those caracters
-    		if (!marked[v] && (dictionaryInTrie.hasKeysWithPrefix(word.toString()) )) {
+    		if (!marked[v] && (dictionaryInTrie.hasKeysWithPrefix(word.toString() + charVertex[v] ) )) {
     			visitSquare(board, v, word, words);
     		}
     	}
