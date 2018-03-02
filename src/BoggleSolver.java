@@ -110,10 +110,7 @@ public class BoggleSolver {
 		}
     }
     
-    private void visitSquare(BoggleBoard board,  int vertex, StringBuilder word, Set<String> words) {
-    	boolean isInDic = false;
-    	
-    	
+    private void visitSquare(BoggleBoard board,  int vertex, StringBuilder word, Set<String> words) {    	
     	marked[vertex] = true;
     	word.append(charVertex[vertex]);
     	// makes a correction for the special case of letter "Q"
@@ -123,11 +120,10 @@ public class BoggleSolver {
     	// word must be in the dictionary AND have at least 3 letters
     	if (word.length() >= 3 && dictionaryInTrie.contains(word.toString())) { 
     		words.add(word.toString());
-    		isInDic = true;
     	}
     	for (int v : adj.get(vertex)) {
     		//does not need to visit a square if you know there arent any words that start with those caracters
-    		if (!marked[v] && (isInDic == true || dictionaryInTrie.hasKeysWithPrefix(word.toString()) )) {
+    		if (!marked[v] && (dictionaryInTrie.hasKeysWithPrefix(word.toString()) )) {
     			visitSquare(board, v, word, words);
     		}
     	}
