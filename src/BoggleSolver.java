@@ -8,7 +8,7 @@ import edu.princeton.cs.algs4.StdOut;
 
 public class BoggleSolver {
 
-	private MultiwayTrieFabio<Boolean> dictionaryInTrie = new MultiwayTrieFabio<>(); // ternary search tries
+	private MultiwayTrieNoGenericFabio dictionaryInTrie = new MultiwayTrieNoGenericFabio(); // ternary search tries
 	private ArrayList<Bag<Integer>> adj; // adjacent squares that can be visited from each vertex
 	private boolean[] marked;  //if true, means the cell is already visited in a certain path in the Boggle Boad
 	private char[] charVertex; //the chararcter of the ith vertex
