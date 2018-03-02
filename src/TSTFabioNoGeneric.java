@@ -126,6 +126,56 @@ public class TSTFabioNoGeneric{
         collectKey(x.mid,   prefix.append(x.c));
         prefix.deleteCharAt(prefix.length() - 1);
         collectKey(x.right, prefix);
-    }    
+    }
+    
+    /************************************/
+    
+    public boolean contains(StringBuilder key) {
+        if (key == null) {
+            throw new IllegalArgumentException("argument to contains() is null");
+        }
+        return get(key) != false;
+    }
+
+    
+    public boolean get(StringBuilder key) {
+        if (key == null) {
+            throw new IllegalArgumentException("calls get() with null argument");
+        }
+        if (key.length() == 0) throw new IllegalArgumentException("key must have length >= 1");
+        Node x = get(root, key, 0);
+        if (x == null) return false;
+        return x.val;
+    }
+
+    // return subtrie corresponding to given key
+    private Node get(Node x, StringBuilder key, int d) {
+        if (x == null) return null;
+        if (key.length() == 0) throw new IllegalArgumentException("key must have length >= 1");
+        char c = key.charAt(d);
+        if      (c < x.c)              return get(x.left,  key, d);
+        else if (c > x.c)              return get(x.right, key, d);
+        else if (d < key.length() - 1) return get(x.mid,   key, d+1);
+        else                           return x;
+    }
+    
+    public boolean hasKeysWithPrefix(StringBuilder prefix) {
+        if (prefix == null) {
+            throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
+        }
+        boolean hasPrefix = false;
+        
+        Node x = get(root, prefix, 0);             
+        if (x == null) return false;
+        if (x.val != false) {
+        	return true;
+        }
+        collectKey(x.mid, new StringBuilder(prefix));
+        hasPrefix = this.hasPrefix;
+		this.hasPrefix = false;
+        return hasPrefix;
+    }
+   
+  
 }
 

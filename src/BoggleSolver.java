@@ -118,12 +118,12 @@ public class BoggleSolver {
     		word.append("U");
     	}   	    	
     	// word must be in the dictionary AND have at least 3 letters
-    	if (word.length() >= 3 && dictionaryInTrie.contains(word.toString())) { 
+    	if (word.length() >= 3 && dictionaryInTrie.contains(word)) { 
     		words.add(word.toString());
     	}
     	for (int v : adj.get(vertex)) {
     		//does not need to visit a square if you know there arent any words that start with those caracters
-    		if (!marked[v] && dictionaryInTrie.hasKeysWithPrefix(word.toString())) {
+    		if (!marked[v] && dictionaryInTrie.hasKeysWithPrefix(word)) {
     			visitSquare(board, v, word, words);
     		}
     	}
