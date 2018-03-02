@@ -118,7 +118,7 @@ public class BoggleSolver {
     		word.append("U");
     	}   	    	
     	// word must be in the dictionary AND have at least 3 letters
-    	if (word.length() >= 3 && dictionaryInTrie.contains(word.toString())) { 
+    	if (word.length() >= 3 && dictionaryInTrie.contains(word)) { 
     		words.add(word.toString());
     	}
     	for (int v : adj.get(vertex)) {
