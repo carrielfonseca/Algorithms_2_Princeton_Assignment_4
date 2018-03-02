@@ -29,11 +29,11 @@ public class MultiwayTrieNoGenericFabio {
      *     and {@code null} if the key is not in the symbol table
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
-    public String get(String key) {
+    public boolean get(String key) {
         if (key == null) throw new IllegalArgumentException("argument to get() is null");
         Node x = get(root, key, 0);
-        if (x == null) return null;
-        return  key;
+        if (x == null) return false;
+        return  x.val;
     }
 
     /**
@@ -45,7 +45,7 @@ public class MultiwayTrieNoGenericFabio {
      */
     public boolean contains(String key) {
         if (key == null) throw new IllegalArgumentException("argument to contains() is null");
-        return get(key) != null;
+        return get(key) != false;
     }
 
     private Node get(Node x, String key, int d) {
