@@ -6,9 +6,9 @@ import edu.princeton.cs.algs4.Bag;
 import edu.princeton.cs.algs4.In;
 import edu.princeton.cs.algs4.StdOut;
 
-public class BoggleSolver {
+public class BoggleSolverStringBuilder {
 
-	private MultiwayTrieNoGenericFabio dictionaryInTrie = new MultiwayTrieNoGenericFabio(); // ternary search tries
+	private TSTFabioNoGeneric dictionaryInTrie = new TSTFabioNoGeneric(); // ternary search tries
 	private ArrayList<Bag<Integer>> adj; // adjacent squares that can be visited from each vertex
 	private boolean[] marked;  //if true, means the cell is already visited in a certain path in the Boggle Boad
 	private char[] charVertex; //the chararcter of the ith vertex
@@ -16,7 +16,7 @@ public class BoggleSolver {
 
     // Initializes the data structure using the given array of strings as the dictionary.
     // (You can assume each word in the dictionary contains only the uppercase letters A through Z.)
-    public BoggleSolver(String[] dictionary) {
+    public BoggleSolverStringBuilder(String[] dictionary) {
     	for (String word : dictionary) {    		
     		dictionaryInTrie.put(word, true);    		
     	}
@@ -118,12 +118,12 @@ public class BoggleSolver {
     		word.append("U");
     	}   	    	
     	// word must be in the dictionary AND have at least 3 letters
-    	if (word.length() >= 3 && dictionaryInTrie.contains(word.toString())) { 
+    	if (word.length() >= 3 && dictionaryInTrie.contains(word)) { 
     		words.add(word.toString());
     	}
     	for (int v : adj.get(vertex)) {
     		//does not need to visit a square if you know there arent any words that start with those caracters
-    		if (!marked[v] && dictionaryInTrie.hasKeysWithPrefix(word.toString())) {
+    		if (!marked[v] && dictionaryInTrie.hasKeysWithPrefix(word)) {
     			visitSquare(board, v, word, words);
     		}
     	}
@@ -144,7 +144,7 @@ public class BoggleSolver {
 //		System.out.println(word);
 		In in = new In("dictionary-yawl.txt");
 	    String[] dictionary = in.readAllStrings();
-	    BoggleSolver solver = new BoggleSolver(dictionary);
+	    BoggleSolverStringBuilder solver = new BoggleSolverStringBuilder(dictionary);
 	    BoggleBoard board = new BoggleBoard("board-points26539.txt");
 	    System.out.println(board);
 	    int score = 0;
