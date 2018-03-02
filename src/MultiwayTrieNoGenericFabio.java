@@ -1,11 +1,9 @@
-import edu.princeton.cs.algs4.Queue;
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.TrieST;
 
 public class MultiwayTrieNoGenericFabio {
     private static final int R = 26;        // extended ASCII
-    private static final char OFFSET = 65; 
     private Node root;      // root of trie
     private int n;          // number of keys in trie
     private boolean hasPrefix;
@@ -31,6 +29,13 @@ public class MultiwayTrieNoGenericFabio {
      *     and {@code null} if the key is not in the symbol table
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
+    public boolean get(StringBuilder key) {
+        if (key == null) throw new IllegalArgumentException("argument to get() is null");
+        Node x = get(root, key, 0);
+        if (x == null) return false;
+        return  x.val;
+    }
+    
     public boolean get(String key) {
         if (key == null) throw new IllegalArgumentException("argument to get() is null");
         Node x = get(root, key, 0);
@@ -45,11 +50,23 @@ public class MultiwayTrieNoGenericFabio {
      *     {@code false} otherwise
      * @throws IllegalArgumentException if {@code key} is {@code null}
      */
+    public boolean contains(StringBuilder key) {
+        if (key == null) throw new IllegalArgumentException("argument to contains() is null");
+        return get(key) != false;
+    }
+    
     public boolean contains(String key) {
         if (key == null) throw new IllegalArgumentException("argument to contains() is null");
         return get(key) != false;
     }
 
+    private Node get(Node x, StringBuilder key, int d) {
+        if (x == null) return null;
+        if (d == key.length()) return x;
+        char c = (char) (key.charAt(d) -  'A') ;        
+        return get(x.next[c], key, d+1);
+    }
+    
     private Node get(Node x, String key, int d) {
         if (x == null) return null;
         if (d == key.length()) return x;
@@ -90,17 +107,18 @@ public class MultiwayTrieNoGenericFabio {
     public int size() {
         return n;
     }
-
-	public boolean hasKeysWithPrefix(String prefix) {
-		boolean hasPrefix;
-		Node x = get(root, prefix, 0);
-		collectKey(x, new StringBuilder(prefix));
-		hasPrefix = this.hasPrefix;
-		this.hasPrefix = false;
-		return hasPrefix;
-	}
-
-
+    
+    
+    // recursive implementation
+//	public boolean hasKeysWithPrefix(String prefix) {
+//		boolean hasPrefix;
+//		Node x = get(root, prefix, 0);
+//		collectKey(x, new StringBuilder(prefix));
+//		hasPrefix = this.hasPrefix;
+//		this.hasPrefix = false;
+//		return hasPrefix;
+//	}
+    
 	private void collectKey(Node x, StringBuilder prefix) {
 		if (x == null)	return;
 		if (x.val != false)	{
@@ -113,6 +131,19 @@ public class MultiwayTrieNoGenericFabio {
 			prefix.deleteCharAt(prefix.length() - 1);
 		}
 	}
+	
+	//non-recursive implementation
+	public boolean hasKeysWithPrefix(StringBuilder prefix) {
+        Node x = root;
+        for (int i = 0; i < prefix.length() && x != null; i++)
+            x = x.next[(char) (prefix.charAt(i)- 'A')];
+        return x != null;
+    }
+	
+
+
+
+
 
 	/**
      * Removes the key from the set if the key is present.
