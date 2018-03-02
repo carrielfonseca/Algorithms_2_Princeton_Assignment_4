@@ -1,11 +1,11 @@
 import edu.princeton.cs.algs4.Queue;
-import edu.princeton.cs.algs4.StdIn;
-import edu.princeton.cs.algs4.StdOut;
 
 
 public class TSTFabioNoGeneric{
     private int n;              // size
     private Node root;   // root of TST
+    private boolean hasPrefix;
+    
 //    private Node<Value> currentNode; //lastNode in the TST
 //    private String currentWord;
 
@@ -19,7 +19,8 @@ public class TSTFabioNoGeneric{
     /**
      * Initializes an empty string symbol table.
      */
-    public TSTFabioNoGeneric() {   
+    public TSTFabioNoGeneric() {
+    	hasPrefix = false;
     }
 
     /**
@@ -105,27 +106,29 @@ public class TSTFabioNoGeneric{
         if (prefix == null) {
             throw new IllegalArgumentException("calls keysWithPrefix() with null argument");
         }
-        Queue<String> queue = new Queue<String>();
+        boolean hasPrefix;
         
         Node x = get(root, prefix, 0);             
         if (x == null) return false;
         if (x.val != false) {
-        	queue.enqueue(prefix);
+        	return true;
         }
-        collectKey(x.mid, new StringBuilder(prefix), queue);
-        return !queue.isEmpty();
+        collectKey(x.mid, new StringBuilder(prefix));
+        hasPrefix = this.hasPrefix;
+		this.hasPrefix = false;
+        return hasPrefix;
     }
      
-    private void collectKey(Node x, StringBuilder prefix, Queue<String> queue) {
+    private void collectKey(Node x, StringBuilder prefix) {
         if (x == null) return;
-        collectKey(x.left,  prefix, queue);
+        collectKey(x.left,  prefix);
         if (x.val != false) {
-        	queue.enqueue(prefix.toString() + x.c);
+        	hasPrefix = true;
         	return;
         }
-        collectKey(x.mid,   prefix.append(x.c), queue);
-        prefix.deleteCharAt(prefix.length() - 1);
-        collectKey(x.right, prefix, queue);
+        collectKey(x.mid,   prefix.append(x.c));
+        prefix.deleteCharAt(prefix.length());
+        collectKey(x.right, prefix);
     }    
 }
 
