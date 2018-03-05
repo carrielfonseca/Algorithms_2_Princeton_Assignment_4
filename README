@@ -17,5 +17,10 @@ Several changes were made to gain speed in the code, but the main ones are as fo
 1-) The method to check for prefixes stops being processed once a prefix is found instead of returning a full list
 2-) Being careful when checking for prefixes and include the character in the square being visited as well
 3-) Creating a non recursive method to check for prefixes. Source: https://github.com/CtheSky/Coursera-Algorithms/tree/master/Assignment9_Boggle
+4-) Making the R trie being a 26 character true instead of the original 256
 
 A pre-processing of graph was also made as well as using StringBuilder whenever possible to concatenate the new words
+
+It creates several versions of tries for testing purposes. the version submitted was: MultiwayTrieFabio
+
+
