@@ -1,1 +1,21 @@
 # Algorithms_2_Princeton_Assignment_4
+
+This assignment leverages two main learnings in the course for being solved:
+
+1-) Performing a depth first search in a graph, with a slight changed: once a word in the boggle board
+    starts being searched and marked, when the square visited is left, the marked array is unmarked
+    
+2-) A Trie structure, which is used to be store the dictionary in an efficient manner
+
+
+After using a changed version of a Ternary Trie showed in the course, the final version was a changed Multiway-Trie.
+The specification hints on the Multiway-Trie by saying memory is not an issue, which happens to be the main
+issue with the R-Trie.
+
+Several changes were made to gain speed in the code, but the main ones are as follows
+
+1-) The method to check for prefixes stops being processed once a prefix is found instead of returning a full list
+2-) Being careful when checking for prefixes and include the character in the square being visited as well
+3-) Creating a non recursive method to check for prefixes. Source: https://github.com/CtheSky/Coursera-Algorithms/tree/master/Assignment9_Boggle
+
+A pre-processing of graph was also made as well as using StringBuilder whenever possible to concatenate the new words
