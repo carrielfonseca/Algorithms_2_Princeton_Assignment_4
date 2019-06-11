@@ -5,10 +5,11 @@ This assignment leverages two main learnings in the course for being solved:
 1-) Performing a depth first search in a graph, with a slight changed: once a word in the boggle board
     starts being searched and marked, when the square visited is left, the marked array is unmarked
     
-2-) A Trie structure, which is used to be store the dictionary in an efficient manner
+2-) A Trie structure, which is used to store the dictionary in an efficient manner
 
 
-After using a changed version of a Ternary Trie showed in the course, the final version was a changed Multiway-Trie.
+After using a changed version of a Ternary Trie showed in the course, the final version was a changed Multiway-Trie (see TrieSET and TrieST in
+in https://algs4.cs.princeton.edu/50strings/).
 The specification hints on the Multiway-Trie by saying memory is not an issue, which happens to be the main
 issue with the R-Trie.
 
@@ -21,6 +22,6 @@ Several changes were made to gain speed in the code, but the main ones are as fo
 
 A pre-processing of graph was also made as well as using StringBuilder whenever possible to concatenate the new words
 
-It creates several versions of tries for testing purposes. the version submitted was: MultiwayTrieFabio
+It creates several versions of tries for testing purposes. the version submitted was: MultiwayTrieNoGenericFabio
 
 
